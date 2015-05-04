@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.aranea.apps.zlatendab.util.ImageUtil;
+import com.joanzapata.android.iconify.Iconify;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -16,6 +19,11 @@ public class MainActivity extends ActionBarActivity {
   Toolbar toolbar;
   @InjectView(R.id.fragmentContainer)
   FrameLayout fragmentContainer;
+
+  public static final int OPTIONS_MENU_ITEM_SETTINGS = 321;
+  public static final int OPTIONS_MENU_ITEM_INFO = 968;
+    public static final int OPTIONS_MENU_ITEM_SHARE = 145;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +36,30 @@ public class MainActivity extends ActionBarActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
+      MenuItem menuItemInfo = menu.add(0, OPTIONS_MENU_ITEM_INFO, 0, getString(R.string.action_info));
+      menuItemInfo.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+      menuItemInfo.setIcon(ImageUtil.getIcon(getApplicationContext(), Iconify.IconValue.fa_info, android.R.color.white, 20));
+      MenuItem menuItemShare = menu.add(0, OPTIONS_MENU_ITEM_SHARE, 0, getString(R.string.action_share));
+      menuItemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+      menuItemShare.setIcon(ImageUtil.getIcon(getApplicationContext(), Iconify.IconValue.fa_share_alt, android.R.color.white, 20));
+      MenuItem menuItemSettings = menu.add(0, OPTIONS_MENU_ITEM_SETTINGS, 0, getString(R.string.action_settings));
+      menuItemSettings.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+      menuItemSettings.setIcon(ImageUtil.getIcon(getApplicationContext(), Iconify.IconValue.fa_gear, android.R.color.white, 20));
+      return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    if (id == R.id.action_settings) {
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
+      switch (item.getItemId()) {
+          case OPTIONS_MENU_ITEM_SETTINGS:
+              return true;
+          case OPTIONS_MENU_ITEM_INFO:
+              return true;
+          case OPTIONS_MENU_ITEM_SHARE:
+              return true;
+          default:
+              return super.onOptionsItemSelected(item);
+      }
   }
 
   private void setupToolbar() {
