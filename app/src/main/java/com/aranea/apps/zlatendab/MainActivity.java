@@ -1,5 +1,8 @@
 package com.aranea.apps.zlatendab;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +20,9 @@ public class MainActivity extends ActionBarActivity {
   @InjectView(R.id.fragmentContainer)
   FrameLayout fragmentContainer;
 
+  private FragmentManager fragmentManager;
+  private FragmentTransaction transaction;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -24,6 +30,12 @@ public class MainActivity extends ActionBarActivity {
     ButterKnife.inject(this);
 
     setupToolbar();
+    fragmentManager = getFragmentManager();
+    Fragment fragment = new MainFragment();
+    transaction = fragmentManager.beginTransaction();
+    transaction.replace(R.id.fragmentContainer, fragment)
+      .addToBackStack(null)
+      .commit();
   }
 
   @Override
