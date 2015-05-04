@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.aranea.apps.zlatendab.util.FragmentUtil;
 import com.aranea.apps.zlatendab.util.ImageUtil;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
     ButterKnife.inject(this);
 
     setupToolbar();
+
   }
 
   @Override
@@ -52,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
           case OPTIONS_MENU_ITEM_SETTINGS:
+              FragmentUtil.replaceFragment(getSupportFragmentManager(), R.id.fragmentContainer, new SettingsFragment());
               return true;
           case OPTIONS_MENU_ITEM_INFO:
               return true;
