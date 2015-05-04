@@ -1,4 +1,4 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.modules.views.adapters;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -24,18 +24,10 @@ import android.view.ViewGroup;
 @SuppressWarnings("ConstantConditions")
 public class CoverFlowItemWrapper extends ViewGroup {
 
-  // =============================================================================
-  // Private members
-  // =============================================================================
-
   private float saturation;
-
   private boolean isReflectionEnabled = false;
-
   private float imageReflectionRatio;
-
   private int reflectionGap;
-
   private float originalScaledownFactor;
 
   /**
@@ -58,11 +50,6 @@ public class CoverFlowItemWrapper extends ViewGroup {
    */
   private Canvas wrappedViewDrawingCanvas;
 
-
-  // =============================================================================
-  // Constructor
-  // =============================================================================
-
   public CoverFlowItemWrapper(Context context) {
     super(context);
     this.init();
@@ -84,10 +71,6 @@ public class CoverFlowItemWrapper extends ViewGroup {
     // TODO: Define a default value for saturation inside an XML.
     this.setSaturation(1);
   }
-
-  // =============================================================================
-  // Getters / Setters
-  // =============================================================================
 
   void setReflectionEnabled(boolean hasReflection) {
     if (hasReflection != this.isReflectionEnabled) {
@@ -123,10 +106,6 @@ public class CoverFlowItemWrapper extends ViewGroup {
       this.paint.setColorFilter(new ColorMatrixColorFilter(this.colorMatrix));
     }
   }
-
-  // =============================================================================
-  // Supertype overrides
-  // =============================================================================
 
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -184,10 +163,6 @@ public class CoverFlowItemWrapper extends ViewGroup {
 
     canvas.drawBitmap(this.wrappedViewBitmap, (this.getWidth() - childView.getWidth()) / 2, 0, paint);
   }
-
-  // =============================================================================
-  // Methods
-  // =============================================================================
 
   private void remeasureChildren() {
     View child = this.getChildAt(0);

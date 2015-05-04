@@ -1,9 +1,13 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.modules.views.adapters;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.modules.views.CoverFlow;
+import com.aranea.apps.zlatendab.util.AppUtil;
 
 /**
  * Created by MephistoFloyd on 5/4/2015.
@@ -19,7 +23,7 @@ public class CoverFlowAdapter extends CoverFlowBaseAdapter {
 
   @Override
   public int getCount() {
-    return images.length;
+    return Integer.MAX_VALUE;
   }
 
   @Override
@@ -33,8 +37,13 @@ public class CoverFlowAdapter extends CoverFlowBaseAdapter {
   }
 
   @Override
-  public View getCoverFlowItem(int i, View reuseableView, ViewGroup viewGroup) {
+  public View getCoverFlowItem(int position, View reuseableView, ViewGroup viewGroup) {
     ImageView imageView = null;
+
+    if (position >= images.length) {
+      position = position % images.length;
+    }
+
     float widthInDp = 150;
     float heightInDp = 250;
 
@@ -46,7 +55,7 @@ public class CoverFlowAdapter extends CoverFlowBaseAdapter {
       imageView.setLayoutParams(new CoverFlow.LayoutParams((int) AppUtil.convertDpToPixel(widthInDp, context),
         (int) AppUtil.convertDpToPixel(heightInDp, context)));
     }
-    imageView.setImageResource(this.getItem(i));
+    imageView.setImageResource(this.getItem(position));
     return imageView;
   }
 }

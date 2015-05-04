@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-  <com.aranea.apps.zlatendab.CoverFlow
+  <com.aranea.apps.zlatendab.modules.views.CoverFlow
     android:id="@+id/coverFlow"
     android:layout_width="match_parent"
     android:layout_height="300dp"

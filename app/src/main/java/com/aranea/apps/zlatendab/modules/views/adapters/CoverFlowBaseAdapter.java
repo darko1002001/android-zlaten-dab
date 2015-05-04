@@ -1,17 +1,15 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.modules.views.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.aranea.apps.zlatendab.modules.views.CoverFlow;
+
 /**
  * Created by MephistoFloyd on 5/4/2015.
  */
 public abstract class CoverFlowBaseAdapter extends BaseAdapter {
-
-  // =============================================================================
-  // Supertype overrides
-  // =============================================================================
 
   @Override
   public final View getView(int i, View reusableView, ViewGroup viewGroup) {
@@ -42,16 +40,11 @@ public abstract class CoverFlowBaseAdapter extends BaseAdapter {
       coverFlowItem.setReflectionRatio(coverFlow.getReflectionRatio());
     }
 
-
     coverFlowItem.addView(wrappedView);
     coverFlowItem.setLayoutParams(wrappedView.getLayoutParams());
 
     return coverFlowItem;
   }
-
-  // =============================================================================
-  // Abstract methods
-  // =============================================================================
 
   public abstract View getCoverFlowItem(int position, View reusableView, ViewGroup parent);
 }

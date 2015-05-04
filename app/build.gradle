@@ -24,4 +24,6 @@ dependencies {
   compile 'com.android.support:appcompat-v7:22.0.0'
   compile 'com.jakewharton:butterknife:6.1.0'
   compile 'com.j256.ormlite:ormlite-android:4.45'
+  compile 'com.joanzapata.android:android-iconify:1.0.9'
+  compile 'com.jakewharton.timber:timber:2.7.1'
 }

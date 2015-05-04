@@ -1,4 +1,4 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.modules.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.view.animation.Transformation;
 import android.widget.Gallery;
 import android.widget.SpinnerAdapter;
+
+import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.modules.views.adapters.CoverFlowBaseAdapter;
+import com.aranea.apps.zlatendab.modules.views.adapters.CoverFlowItemWrapper;
 
 /**
  * Created by MephistoFloyd on 5/4/2015.
@@ -242,10 +246,6 @@ public class CoverFlow extends Gallery {
     this.unselectedSaturation = unselectedSaturation;
   }
 
-  // =============================================================================
-  // Supertype overrides
-  // =============================================================================
-
   @Override
   protected boolean getChildStaticTransformation(View child, Transformation t) {
     // We can cast here because CoverFlowAdapter only creates wrappers.
@@ -309,10 +309,6 @@ public class CoverFlow extends Gallery {
 
     return true;
   }
-
-  // =============================================================================
-  // Public classes
-  // =============================================================================
 
   public static class LayoutParams extends Gallery.LayoutParams {
     public LayoutParams(Context c, AttributeSet attrs) {

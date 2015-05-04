@@ -1,4 +1,4 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.util;
 
 import android.content.Context;
 import android.content.res.Resources;
