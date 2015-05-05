@@ -10,7 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:text="@string/label_gender"
         android:textSize="20sp" />
 
     <RadioGroup
@@ -25,13 +24,13 @@
             android:id="@+id/radioButtonMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_button_male" />
+             />
 
         <RadioButton
             android:id="@+id/radioButtonFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_button_female" />
+             />
     </RadioGroup>
 
 
@@ -42,39 +41,37 @@
         android:padding="10dp"
         android:inputType="numberDecimal"
         android:layout_below="@id/radioGroupGender"
-        android:hint="@string/edit_text_hint_weight" />
+         />
 
 
     <TextView
         android:id="@+id/textViewLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_language"
         android:layout_below="@id/editTextWeight"
         android:textColor="@android:color/white"
         android:layout_marginTop="20dp"
         android:textSize="20sp" />
 
-    <RadioGroup
-        android:id="@+id/radioGroupLanguage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_below="@id/textViewLanguage">
+   <LinearLayout android:id="@+id/linearLayoutLanguage"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/textViewLanguage"
+       android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioButtonEnglish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_button_english" />
+       <ImageButton android:id="@+id/imageButtonFlagMk"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_margin="10dp"
+           android:background="@null"
+           android:src="@drawable/icon_flag_mk"/>
 
-        <RadioButton
-            android:id="@+id/radioButtonMacedonian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_button_macedonian" />
-    </RadioGroup>
-
+       <ImageButton android:id="@+id/imageButtonFlagUk"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_margin="10dp"
+           android:background="@null"
+           android:src="@drawable/icon_flag_uk"/>
+       </LinearLayout>
 
 </RelativeLayout>
