@@ -9,6 +9,7 @@
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="@string/label_gender"
         android:textSize="20sp" />
 
@@ -50,7 +51,8 @@
         android:layout_height="wrap_content"
         android:text="@string/label_language"
         android:layout_below="@id/editTextWeight"
-        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"
         android:textSize="20sp" />
 
     <RadioGroup

@@ -1,5 +1,6 @@
 package com.aranea.apps.zlatendab.modules.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -82,6 +83,11 @@ public class MainActivity extends ActionBarActivity {
       case OPTIONS_MENU_ITEM_INFO:
         return true;
       case OPTIONS_MENU_ITEM_SHARE:
+          Intent sendIntent = new Intent();
+          sendIntent.setAction(Intent.ACTION_SEND);
+          sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm drunk!");
+          sendIntent.setType("text/plain");
+          startActivity(sendIntent);
         return true;
       default:
         return super.onOptionsItemSelected(item);

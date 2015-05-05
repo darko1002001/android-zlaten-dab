@@ -11,4 +11,5 @@
     <string name="label_gender">Gender</string>
     <string name="label_language">Language</string>
     <string name="edit_text_hint_weight">Weight</string>
+    <string name="share">Share</string>
 </resources>
