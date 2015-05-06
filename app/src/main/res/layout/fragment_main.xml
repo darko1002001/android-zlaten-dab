@@ -1,18 +1,186 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-  <com.aranea.apps.zlatendab.modules.views.CoverFlow
-    android:id="@+id/coverFlow"
+  <TextView
+    android:id="@+id/chooseLabel"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_centerInParent="true"
-    android:unselectedAlpha="0.3"
-    app:maxRotation="45"
-    app:scaleDownGravity="0.5"
-    app:unselectedSaturation="10"
-    app:unselectedScale="0.4"/>
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    android:text="@string/label_who"
+    android:textSize="18sp"
+    android:textStyle="bold"/>
 
-</RelativeLayout>
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginBottom="16dp"
+    android:layout_weight="1"
+    android:orientation="horizontal">
+
+    <ImageButton
+      android:id="@+id/leftButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_margin="10dp"
+      android:background="@null"
+      android:scaleType="centerInside"/>
+
+    <com.aranea.apps.zlatendab.modules.fragments.main.PagerContainer
+      android:id="@+id/pager_container"
+      android:layout_width="225dp"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true">
+
+      <com.aranea.apps.zlatendab.modules.fragments.main.CustomViewPager
+        android:id="@+id/pager"
+        android:layout_width="160dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"/>
+
+    </com.aranea.apps.zlatendab.modules.fragments.main.PagerContainer>
+
+    <ImageButton
+      android:id="@+id/rightButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_margin="10dp"
+      android:background="@null"
+      android:scaleType="centerInside"/>
+
+  </RelativeLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_gravity="center"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/background_drawable"
+    android:orientation="horizontal">
+
+    <ImageButton
+      android:id="@+id/addButton"
+      android:layout_width="40dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_margin="10dp"
+      android:background="@null"
+      android:scaleType="centerInside"/>
+
+    <TextView
+      android:id="@+id/amountLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_marginEnd="10dp"
+      android:layout_marginRight="10dp"
+      android:gravity="center"
+      android:textColor="@color/textColorPrimary"
+      android:textSize="20sp"
+      android:textStyle="bold|italic"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="5dp"
+      android:background="@drawable/background_drawable_white"
+      android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/intervalLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_weight="1"
+      android:paddingLeft="15dp"
+      android:paddingRight="15dp"
+      android:singleLine="true"
+      android:text="@string/label_time_interval"
+      android:textColor="@color/textColorPrimary"
+      android:textSize="16sp"/>
+
+    <Button
+      android:layout_width="110dp"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:text="01:15"
+      android:textColor="@color/colorPrimary"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/addLayout"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal">
+
+    <LinearLayout
+      android:layout_width="210dp"
+      android:layout_height="match_parent"
+      android:layout_margin="10dp"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your BAC level is 0,07%. You are exceeding the legal limit. DON'T DRIVE!"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="You will be completely sober in approximately 3,5 hours."
+        android:textColor="@color/zlatenDab"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:padding="10dp">
+
+      <Button
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_calculate"/>
+
+      <Button
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/button_alarm"/>
+    </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

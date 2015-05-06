@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.aranea.apps.zlatendab.R;
-import com.aranea.apps.zlatendab.modules.fragments.MainFragment;
+import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
 import com.aranea.apps.zlatendab.modules.fragments.SettingsFragment;
 import com.aranea.apps.zlatendab.util.FragmentUtil;
 import com.aranea.apps.zlatendab.util.ImageUtil;

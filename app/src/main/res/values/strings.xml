@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ZlatenDab</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_info">Info</string>
-    <string name="action_share">Share</string>
-    <string name="radio_button_male">Male</string>
-    <string name="radio_button_female">Female</string>
-    <string name="radio_button_english">English</string>
-    <string name="radio_button_macedonian">Macedonian</string>
-    <string name="label_gender">Gender</string>
-    <string name="label_language">Language</string>
-    <string name="edit_text_hint_weight">Weight</string>
-    <string name="share">Share</string>
+  <string name="app_name">ZlatenDab</string>
+  <string name="action_settings">Settings</string>
+  <string name="action_info">Info</string>
+  <string name="action_share">Share</string>
+  <string name="radio_button_male">Male</string>
+  <string name="radio_button_female">Female</string>
+  <string name="radio_button_english">English</string>
+  <string name="radio_button_macedonian">Macedonian</string>
+  <string name="label_gender">Gender</string>
+  <string name="label_language">Language</string>
+  <string name="edit_text_hint_weight">Weight</string>
+  <string name="share">Share</string>
+  <string name="label_who">CHOOSE A SIZE</string>
+  <string name="label_time_interval">Enter time interval</string>
+  <string name="button_calculate">CALCULATE</string>
+  <string name="button_alarm">SET ALARM</string>
 </resources>
