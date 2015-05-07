@@ -13,7 +13,7 @@
   <string name="edit_text_hint_weight">Тежина</string>
   <string name="share">Сподели</string>
   <string name="label_who">КОЈ Е ТВОЈОТ ДАБ?</string>
-  <string name="label_time_interval">Внесете интервал</string>
+  <string name="label_time_interval">Пред колку време почнавте со пиење?</string>
   <string name="button_calculate">ПРЕСМЕТАЈ</string>
   <string name="button_alarm">АЛАРМ</string>
   <string name="bac_label">АЛКОХОЛ НИВО:</string>

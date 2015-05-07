@@ -13,7 +13,7 @@
   <string name="edit_text_hint_weight">Weight</string>
   <string name="share">Share</string>
   <string name="label_who">CHOOSE A SIZE</string>
-  <string name="label_time_interval">Enter time interval</string>
+  <string name="label_time_interval">How long have you been drinking?</string>
   <string name="button_calculate">CALCULATE</string>
   <string name="button_alarm">SET ALARM</string>
   <string name="bac_label">YOUR BAC LEVEL:</string>

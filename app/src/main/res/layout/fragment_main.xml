@@ -191,10 +191,9 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:layout_marginLeft="15dp"
+      android:layout_marginStart="15dp"
       android:layout_weight="1"
-      android:paddingLeft="15dp"
-      android:paddingRight="15dp"
-      android:singleLine="true"
       android:text="@string/label_time_interval"
       android:textColor="@color/textColorPrimary"
       android:textSize="16sp"/>
@@ -249,10 +248,11 @@
           android:textColor="@color/textColorPrimary"
           android:textSize="30sp"/>
 
-        <ImageView
+        <ImageButton
           android:id="@+id/statusIcon"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_gravity="center"
           android:layout_weight="1"
           android:scaleType="centerInside"/>
 

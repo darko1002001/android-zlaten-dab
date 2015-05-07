@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
@@ -35,6 +37,24 @@ public class MainFragment extends Fragment {
   ImageButton leftButton;
   @InjectView(R.id.amountLabel)
   TextView amountLabel;
+  @InjectView(R.id.numberLarge)
+  TextView numberLarge;
+  @InjectView(R.id.numberLargeLayout)
+  LinearLayout numberLargeLayout;
+  @InjectView(R.id.numberMedium)
+  TextView numberMedium;
+  @InjectView(R.id.numberMediumLayout)
+  LinearLayout numberMediumLayout;
+  @InjectView(R.id.numberSmall)
+  TextView numberSmall;
+  @InjectView(R.id.numberSmallLayout)
+  LinearLayout numberSmallLayout;
+  @InjectView(R.id.intervalButton)
+  Button intervalButton;
+  @InjectView(R.id.bacLevel)
+  TextView bacLevel;
+  @InjectView(R.id.statusIcon)
+  ImageButton statusIcon;
 
   private ViewPagerAdapter viewPagerAdapter;
   private int currentPosition;
@@ -59,6 +79,10 @@ public class MainFragment extends Fragment {
     addDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_plus)
       .colorRes(R.color.textColorPrimary)
       .sizeDp(40);
+
+    statusIcon.setImageDrawable(new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
+      .colorRes(R.color.taxiYellow)
+      .sizeDp(25));
 
     rightButton.setImageDrawable(rightChevronDrawable);
     leftButton.setImageDrawable(leftChevronDrawable);
