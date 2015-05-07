@@ -31,4 +31,7 @@ dependencies {
   compile 'com.j256.ormlite:ormlite-android:4.45'
   compile 'com.joanzapata.android:android-iconify:1.0.9'
   compile 'com.jakewharton.timber:timber:2.7.1'
+  compile ("com.doomonafireball.betterpickers:library:1.5.5") {
+    exclude group: 'com.android.support', module: 'support-v4'
+  }
 }

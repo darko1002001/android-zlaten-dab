@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
+import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -23,7 +25,8 @@ import butterknife.InjectView;
 /**
  * Created by MephistoFloyd on 5/4/2015.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements
+  DatePickerDialogFragment.DatePickerDialogHandler {
 
   @InjectView(R.id.pager)
   CustomViewPager pager;
@@ -54,7 +57,11 @@ public class MainFragment extends Fragment {
   @InjectView(R.id.bacLevel)
   TextView bacLevel;
   @InjectView(R.id.statusIcon)
-  ImageButton statusIcon;
+  ImageButton statusButton;
+  @InjectView(R.id.calculateButton)
+  Button calculateButton;
+  @InjectView(R.id.alarmButton)
+  Button alarmButton;
 
   private ViewPagerAdapter viewPagerAdapter;
   private int currentPosition;
@@ -63,12 +70,25 @@ public class MainFragment extends Fragment {
   private IconDrawable leftChevronDrawable;
   private IconDrawable rightChevronDrawable;
   private IconDrawable addDrawable;
+  private IconDrawable statusDrawableTaxi;
+  private IconDrawable statusDrawableOk;
+
+  private RadialTimePickerDialog radialTimePickerDialog;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_main, container, false);
     ButterKnife.inject(this, view);
+
+    intervalButton.setText(0 + " hours,\n" + 0 + " minutes");
+    radialTimePickerDialog = new RadialTimePickerDialog();
+    radialTimePickerDialog.initialize(new RadialTimePickerDialog.OnTimeSetListener() {
+      @Override
+      public void onTimeSet(RadialTimePickerDialog radialTimePickerDialog, int hour, int minute) {
+        intervalButton.setText(hour + " hours,\n" + minute + " minutes");
+      }
+    }, 1, 0, true);
 
     leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
       .colorRes(R.color.colorPrimary)
@@ -80,9 +100,15 @@ public class MainFragment extends Fragment {
       .colorRes(R.color.textColorPrimary)
       .sizeDp(40);
 
-    statusIcon.setImageDrawable(new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
+    statusDrawableTaxi = new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
       .colorRes(R.color.taxiYellow)
-      .sizeDp(25));
+      .sizeDp(25);
+    statusDrawableOk = new IconDrawable(getActivity(), Iconify.IconValue.fa_check)
+      .colorRes(R.color.zlatenDab)
+      .sizeDp(25);
+    statusButton.setImageDrawable(statusDrawableTaxi);
+    statusButton.setOnClickListener(new OnButtonClickListener());
+    statusButton.setOnTouchListener(new OnButtonTouchListener());
 
     rightButton.setImageDrawable(rightChevronDrawable);
     leftButton.setImageDrawable(leftChevronDrawable);
@@ -93,6 +119,9 @@ public class MainFragment extends Fragment {
     leftButton.setOnTouchListener(new OnButtonTouchListener());
     rightButton.setOnTouchListener(new OnButtonTouchListener());
     addButton.setOnTouchListener(new OnButtonTouchListener());
+    calculateButton.setOnClickListener(new OnButtonClickListener());
+    alarmButton.setOnClickListener(new OnButtonClickListener());
+    intervalButton.setOnClickListener(new OnButtonClickListener());
 
     pagerContainer = (PagerContainer) view.findViewById(R.id.pager_container);
     viewPagerAdapter = new ViewPagerAdapter(getActivity());
@@ -125,13 +154,13 @@ public class MainFragment extends Fragment {
             amountLabel.setVisibility(View.VISIBLE);
             switch (realPosition) {
               case 0:
-                amountLabel.setText("0,33L");
+                amountLabel.setText(getString(R.string.small));
                 break;
               case 1:
-                amountLabel.setText("0,5L");
+                amountLabel.setText(getString(R.string.medium));
                 break;
               case 2:
-                amountLabel.setText("1,5L");
+                amountLabel.setText(getString(R.string.large));
                 break;
             }
             break;
@@ -142,7 +171,7 @@ public class MainFragment extends Fragment {
       }
     });
 
-    amountLabel.setText("0,33L");
+    amountLabel.setText(getString(R.string.small));
 
     return view;
   }
@@ -151,6 +180,11 @@ public class MainFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.reset(this);
+  }
+
+  @Override
+  public void onDialogDateSet(int i, int i2, int i3, int i4) {
+
   }
 
   private class OnButtonClickListener implements View.OnClickListener {
@@ -169,6 +203,14 @@ public class MainFragment extends Fragment {
           case 2:
             break;
         }
+      } else if (view == intervalButton) {
+        radialTimePickerDialog.show(getFragmentManager(), "Time");
+      } else if (view == statusButton) {
+
+      } else if (view == calculateButton) {
+        statusButton.setImageDrawable(statusDrawableOk);
+      } else if (view == alarmButton) {
+
       }
     }
   }
@@ -203,6 +245,15 @@ public class MainFragment extends Fragment {
             rightButton.setImageDrawable(rightChevronDrawable);
             break;
         }
+      } else if (view == statusButton) {
+        switch (event.getAction()) {
+          case MotionEvent.ACTION_DOWN:
+            statusButton.setImageDrawable(adjustIconOnPress(statusButton));
+            break;
+          case MotionEvent.ACTION_UP:
+            statusButton.setImageDrawable(statusDrawableTaxi);
+            break;
+        }
       }
       return false;
     }
@@ -217,12 +268,18 @@ public class MainFragment extends Fragment {
       value = Iconify.IconValue.fa_chevron_left;
     } else if (view == rightButton) {
       value = Iconify.IconValue.fa_chevron_right;
+    } else if (view == statusButton) {
+      value = Iconify.IconValue.fa_taxi;
     }
 
     if (view == addButton) {
       return new IconDrawable(getActivity(), value)
         .colorRes(R.color.textColorPrimary)
         .sizeDp(35);
+    } else if (view == statusButton) {
+      return new IconDrawable(getActivity(), value)
+        .colorRes(R.color.taxiYellow)
+        .sizeDp(20);
     } else {
       return new IconDrawable(getActivity(), value)
         .colorRes(R.color.colorPrimary)

@@ -204,8 +204,9 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
-      android:text="01:15"
-      android:textColor="@color/colorPrimary"/>
+      android:gravity="start"
+      android:textColor="@color/colorPrimary"
+      android:textSize="12sp"/>
 
   </LinearLayout>
 
@@ -286,15 +287,18 @@
       android:padding="10dp">
 
       <Button
+        android:id="@+id/calculateButton"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="@string/button_calculate"/>
 
       <Button
+        android:id="@+id/alarmButton"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/button_alarm"/>
+
     </LinearLayout>
 
   </LinearLayout>
