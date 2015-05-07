@@ -1,4 +1,4 @@
-package com.aranea.apps.zlatendab;
+package com.aranea.apps.zlatendab.app;
 
 import android.app.Application;
 

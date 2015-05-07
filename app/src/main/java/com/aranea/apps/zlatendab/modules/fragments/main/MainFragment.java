@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.aranea.apps.zlatendab.R;
 import com.aranea.apps.zlatendab.modules.TimeDialogFragment;
 import com.aranea.apps.zlatendab.util.AppUtil;
+import com.aranea.apps.zlatendab.util.MathUtil;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -81,6 +82,9 @@ public class MainFragment extends Fragment {
   private int smallBeersNumber = 1;
   private int mediumBeersNumber = 1;
   private int largeBeersNumbers = 1;
+
+  private int hoursChosen = 0;
+  private int minutesChosen = 0;
 
   private TimeDialogFragment timeDialogFragment;
 
@@ -161,12 +165,11 @@ public class MainFragment extends Fragment {
             break;
         }
       } else if (view == intervalButton) {
-        //timePickerDialog.show(getFragmentManager(), "Time");
         timeDialogFragment.show(getFragmentManager(), "Time");
       } else if (view == statusButton) {
 
       } else if (view == calculateButton) {
-        statusButton.setImageDrawable(statusDrawableOk);
+        calculateBacLevel();
       } else if (view == alarmButton) {
 
       }
@@ -251,6 +254,8 @@ public class MainFragment extends Fragment {
       @Override
       public void onChoose(int hours, int minutes) {
         intervalButton.setText(hours + " hours,\n" + minutes + " minutes");
+        hoursChosen = hours;
+        minutesChosen = minutes;
       }
     });
     leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
@@ -297,5 +302,22 @@ public class MainFragment extends Fragment {
     pager.setClipChildren(false);
     pager.setPageMargin(AppUtil.convertDpToPixel(-60, getActivity()));
     pager.setScrollDurationFactor(3);
+  }
+
+  private void calculateBacLevel() {
+    int numSmallBeers = Integer.parseInt(numberSmall.getText().toString());
+    int numMediumBeers = Integer.parseInt(numberMedium.getText().toString());
+    int numLargeBeers = Integer.parseInt(numberLarge.getText().toString());
+
+    double totalSmall = numSmallBeers * MathUtil.getOuncesFromMilliliters(330);
+    double totalMedium = numMediumBeers * MathUtil.getOuncesFromMilliliters(500);
+    double totalLarge = numLargeBeers * MathUtil.getOuncesFromMilliliters(1500);
+
+    double ouncesConsumed = MathUtil.getLiquidOuncesOfAlcoholConsumed(totalSmall,
+      totalMedium,
+      totalLarge);
+
+    double timeInHours = MathUtil.convertTimeToHours(hoursChosen, minutesChosen);
+    bacLevel.setText(String.valueOf(MathUtil.getBacLevel(ouncesConsumed, timeInHours)) + "%");
   }
 }
