@@ -16,4 +16,6 @@
   <string name="label_time_interval">Внесете интервал</string>
   <string name="button_calculate">ПРЕСМЕТАЈ</string>
   <string name="button_alarm">АЛАРМ</string>
+  <string name="bac_label">АЛКОХОЛ НИВО:</string>
+  <string name="sober_label">Трезни за отприлика:</string>
 </resources>

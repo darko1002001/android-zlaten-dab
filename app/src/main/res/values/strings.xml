@@ -16,4 +16,10 @@
   <string name="label_time_interval">Enter time interval</string>
   <string name="button_calculate">CALCULATE</string>
   <string name="button_alarm">SET ALARM</string>
+  <string name="bac_label">YOUR BAC LEVEL:</string>
+  <string name="sober_label">Sober in approximately:</string>
+
+  <string name="large">1,5L</string>
+  <string name="medium">0,5L</string>
+  <string name="small">0,33L</string>
 </resources>

@@ -112,7 +112,7 @@ public class MainFragment extends Fragment {
             }
             break;
           case ViewPager.SCROLL_STATE_SETTLING:
-            amountLabel.setVisibility(View.GONE);
+            amountLabel.setVisibility(View.INVISIBLE);
             break;
         }
       }
