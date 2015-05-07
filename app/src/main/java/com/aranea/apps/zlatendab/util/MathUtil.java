@@ -14,6 +14,8 @@ public class MathUtil {
   public static final double LIQUID_OUNCES_TO_WEIGHT_CONSTANT = 5.14;
   public static final double AVERAGE_ALCOHOL_ELIMINATION_RATE = 0.015;
   public static final double BEER_ALCOHOL_PERCENT = 0.045;
+  public static final double LEGAL_LIMIT_WITH_TWO_YEARS = 0.05;
+  public static final double LEGAL_LIMIT_WITHOUT_TWO_YEARS = 0.00;
 
   public static double getPoundsFromKilograms(int kg) {
     return kg * POUNDS_CONVERTER_VALUE;
@@ -46,8 +48,16 @@ public class MathUtil {
         break;
     }
 
-    return Double.valueOf(df.format(((liquidOunces * LIQUID_OUNCES_TO_WEIGHT_CONSTANT) /
+    double result = Double.valueOf(df.format(((liquidOunces * LIQUID_OUNCES_TO_WEIGHT_CONSTANT) /
       (MathUtil.getPoundsFromKilograms(weightKg) * genderConstant)) -
       (AVERAGE_ALCOHOL_ELIMINATION_RATE * hours)));
+
+    if (result < 0) {
+      return Double.valueOf(df.format(0));
+    } else return result;
+  }
+
+  public static double getLegalLimit() {
+    return LEGAL_LIMIT_WITH_TWO_YEARS;
   }
 }

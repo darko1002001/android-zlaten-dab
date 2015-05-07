@@ -60,12 +60,14 @@ public class MainFragment extends Fragment {
   Button intervalButton;
   @InjectView(R.id.bacLevel)
   TextView bacLevel;
-  @InjectView(R.id.statusIcon)
+  @InjectView(R.id.statusButton)
   ImageButton statusButton;
   @InjectView(R.id.calculateButton)
   Button calculateButton;
   @InjectView(R.id.alarmButton)
   Button alarmButton;
+  @InjectView(R.id.resetButton)
+  Button resetButton;
   @InjectView(R.id.timer)
   TextView timer;
 
@@ -79,12 +81,12 @@ public class MainFragment extends Fragment {
   private IconDrawable statusDrawableTaxi;
   private IconDrawable statusDrawableOk;
 
-  private int smallBeersNumber = 1;
-  private int mediumBeersNumber = 1;
-  private int largeBeersNumbers = 1;
+  private int smallBeersNumber;
+  private int mediumBeersNumber;
+  private int largeBeersNumbers;
 
-  private int hoursChosen = 0;
-  private int minutesChosen = 0;
+  private int hoursChosen;
+  private int minutesChosen;
 
   private TimeDialogFragment timeDialogFragment;
 
@@ -155,13 +157,13 @@ public class MainFragment extends Fragment {
         beerNumbersLayout.setVisibility(View.VISIBLE);
         switch (realPosition) {
           case 0:
-            numberSmall.setText(String.valueOf(smallBeersNumber++));
+            numberSmall.setText(String.valueOf(++smallBeersNumber));
             break;
           case 1:
-            numberMedium.setText(String.valueOf(mediumBeersNumber++));
+            numberMedium.setText(String.valueOf(++mediumBeersNumber));
             break;
           case 2:
-            numberLarge.setText(String.valueOf(largeBeersNumbers++));
+            numberLarge.setText(String.valueOf(++largeBeersNumbers));
             break;
         }
       } else if (view == intervalButton) {
@@ -172,6 +174,8 @@ public class MainFragment extends Fragment {
         calculateBacLevel();
       } else if (view == alarmButton) {
 
+      } else if (view == resetButton) {
+        initForms();
       }
     }
   }
@@ -267,14 +271,13 @@ public class MainFragment extends Fragment {
     addDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_plus)
       .colorRes(R.color.textColorPrimary)
       .sizeDp(40);
-
     statusDrawableTaxi = new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
       .colorRes(R.color.taxiYellow)
       .sizeDp(25);
     statusDrawableOk = new IconDrawable(getActivity(), Iconify.IconValue.fa_check)
       .colorRes(R.color.zlatenDab)
       .sizeDp(25);
-    statusButton.setImageDrawable(statusDrawableTaxi);
+    statusButton.setEnabled(false);
     statusButton.setOnClickListener(new OnButtonClickListener());
     statusButton.setOnTouchListener(new OnButtonTouchListener());
 
@@ -290,6 +293,7 @@ public class MainFragment extends Fragment {
     calculateButton.setOnClickListener(new OnButtonClickListener());
     alarmButton.setOnClickListener(new OnButtonClickListener());
     intervalButton.setOnClickListener(new OnButtonClickListener());
+    resetButton.setOnClickListener(new OnButtonClickListener());
 
     pagerContainer = (PagerContainer) view.findViewById(R.id.pager_container);
     viewPagerAdapter = new ViewPagerAdapter(getActivity());
@@ -302,6 +306,8 @@ public class MainFragment extends Fragment {
     pager.setClipChildren(false);
     pager.setPageMargin(AppUtil.convertDpToPixel(-60, getActivity()));
     pager.setScrollDurationFactor(3);
+
+    initForms();
   }
 
   private void calculateBacLevel() {
@@ -318,6 +324,35 @@ public class MainFragment extends Fragment {
       totalLarge);
 
     double timeInHours = MathUtil.convertTimeToHours(hoursChosen, minutesChosen);
-    bacLevel.setText(String.valueOf(MathUtil.getBacLevel(ouncesConsumed, timeInHours)) + "%");
+    double resultBac = MathUtil.getBacLevel(ouncesConsumed, timeInHours);
+    bacLevel.setText(String.valueOf(resultBac) + "%");
+
+    statusButton.setVisibility(View.VISIBLE);
+    if (resultBac > MathUtil.getLegalLimit()) {
+      statusButton.setEnabled(true);
+      bacLevel.setTextColor(getResources().getColor(R.color.red));
+      statusButton.setImageDrawable(statusDrawableTaxi);
+    } else {
+      bacLevel.setTextColor(getResources().getColor(R.color.textColorPrimary));
+      statusButton.setImageDrawable(statusDrawableOk);
+    }
+  }
+
+  private void initForms() {
+    hoursChosen = 0;
+    minutesChosen = 0;
+    smallBeersNumber = 0;
+    mediumBeersNumber = 0;
+    largeBeersNumbers = 0;
+    intervalButton.setText(hoursChosen + " hours,\n" + minutesChosen + " minutes");
+    bacLevel.setTextColor(getResources().getColor(R.color.textColorPrimary));
+    addBeersLabel.setVisibility(View.VISIBLE);
+    beerNumbersLayout.setVisibility(View.GONE);
+    statusButton.setVisibility(View.INVISIBLE);
+    numberSmall.setText("0");
+    numberMedium.setText("0");
+    numberLarge.setText("0");
+    bacLevel.setText("0.0%");
+    timer.setText("00:00:00");
   }
 }

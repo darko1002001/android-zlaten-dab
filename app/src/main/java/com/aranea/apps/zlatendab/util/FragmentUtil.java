@@ -21,7 +21,7 @@ public class FragmentUtil {
         ft.commitAllowingStateLoss();
     }
 
-    public static void replaceFragmentToLayoutWithAnimation(final int containerId, final FragmentManager fragmentManager,
+    public static void replaceFragmentToLayoutWithAnimation(final FragmentManager fragmentManager, final int containerId,
                                                             final Fragment fragment, final String tag) {
         final FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
@@ -57,9 +57,9 @@ public class FragmentUtil {
 
 
     public static void replaceFragment(FragmentManager manager, int parent,
-                                       Fragment fragment) {
+                                       Fragment fragment, String tag) {
         FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(parent, fragment);
+        ft.replace(parent, fragment, tag);
         ft.addToBackStack(null);
         ft.commit();
     }
@@ -72,5 +72,4 @@ public class FragmentUtil {
             ft.commit();
         }
     }
-
 }

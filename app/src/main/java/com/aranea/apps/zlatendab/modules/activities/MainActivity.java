@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.app.App;
 import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
 import com.aranea.apps.zlatendab.modules.fragments.SettingsFragment;
 import com.aranea.apps.zlatendab.util.FragmentUtil;
@@ -25,11 +26,8 @@ public class MainActivity extends ActionBarActivity {
 
   @InjectView(R.id.toolbar)
   Toolbar toolbar;
-  @InjectView(R.id.fragmentContainer)
-  FrameLayout fragmentContainer;
 
   private FragmentManager fragmentManager;
-  private FragmentTransaction transaction;
 
   public static final int OPTIONS_MENU_ITEM_SETTINGS = 321;
   public static final int OPTIONS_MENU_ITEM_INFO = 968;
@@ -40,15 +38,12 @@ public class MainActivity extends ActionBarActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
+    fragmentManager = getSupportFragmentManager();
 
     setupToolbar();
 
-    fragmentManager = getSupportFragmentManager();
-    Fragment fragment = new MainFragment();
-    transaction = fragmentManager.beginTransaction();
-    transaction.replace(R.id.fragmentContainer, fragment)
-      .addToBackStack(null)
-      .commit();
+    FragmentUtil.replaceFragment(fragmentManager,
+      R.id.fragmentContainer, new MainFragment(), MainFragment.class.getSimpleName());
   }
 
   @Override
@@ -78,16 +73,18 @@ public class MainActivity extends ActionBarActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case OPTIONS_MENU_ITEM_SETTINGS:
-        FragmentUtil.replaceFragment(fragmentManager, R.id.fragmentContainer, new SettingsFragment());
+        if (fragmentManager.findFragmentByTag(SettingsFragment.class.getSimpleName()) == null)
+          FragmentUtil.replaceFragment(fragmentManager,
+            R.id.fragmentContainer, new SettingsFragment(), SettingsFragment.class.getSimpleName());
         return true;
       case OPTIONS_MENU_ITEM_INFO:
         return true;
       case OPTIONS_MENU_ITEM_SHARE:
-          Intent sendIntent = new Intent();
-          sendIntent.setAction(Intent.ACTION_SEND);
-          sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm drunk!");
-          sendIntent.setType("text/plain");
-          startActivity(sendIntent);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm drunk!");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
         return true;
       default:
         return super.onOptionsItemSelected(item);

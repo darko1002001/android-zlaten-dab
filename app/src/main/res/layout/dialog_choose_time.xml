@@ -25,7 +25,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/zlatenDab"
-      materialdesign:max="50"
+      materialdesign:max="12"
       materialdesign:min="0"/>
 
     <TextView

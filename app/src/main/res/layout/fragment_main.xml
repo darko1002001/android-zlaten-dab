@@ -17,7 +17,7 @@
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="10dp"
     android:layout_weight="1"
     android:orientation="horizontal">
 
@@ -99,15 +99,13 @@
         android:gravity="center"
         android:text="@string/enter_number_label"
         android:textColor="@color/textColorPrimary"
-        android:textSize="20sp"
-        android:visibility="visible"/>
+        android:textSize="20sp" />
 
       <LinearLayout
         android:id="@+id/beerNumbersLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <LinearLayout
           android:id="@+id/numberLargeLayout"
@@ -130,7 +128,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="0"
             android:textColor="@color/textColorPrimary"
             android:textSize="20sp"/>
 
@@ -157,7 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="0"
             android:textColor="@color/textColorPrimary"
             android:textSize="20sp"/>
 
@@ -184,7 +180,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="0"
             android:textColor="@color/textColorPrimary"
             android:textSize="20sp"/>
 
@@ -223,9 +218,8 @@
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
       android:gravity="start"
-      android:text="0 hours,\n0 minutes"
       android:textColor="@color/colorPrimary"
-      android:textSize="12sp"/>
+      android:textSize="14sp"/>
 
   </LinearLayout>
 
@@ -264,12 +258,11 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="2"
-          android:text="0,00%"
           android:textColor="@color/textColorPrimary"
           android:textSize="30sp"/>
 
         <ImageButton
-          android:id="@+id/statusIcon"
+          android:id="@+id/statusButton"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
@@ -293,7 +286,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|start"
-        android:text="00:00:00"
         android:textColor="@color/textColorPrimary"
         android:textSize="25sp"/>
 
@@ -304,12 +296,16 @@
       android:layout_height="match_parent"
       android:gravity="center"
       android:orientation="vertical"
-      android:padding="10dp">
+      android:paddingTop="5dp"
+      android:paddingBottom="5dp"
+      android:paddingRight="10dp"
+      android:paddingLeft="10dp">
 
       <Button
         android:id="@+id/calculateButton"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/zlatenDab"
         android:text="@string/button_calculate"/>
 
       <Button
@@ -318,6 +314,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/button_alarm"/>
+
+      <Button
+        android:id="@+id/resetButton"
+        android:layout_width="110dp"
+        android:textColor="@color/red"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/button_reset"/>
 
     </LinearLayout>
 
