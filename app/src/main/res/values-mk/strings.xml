@@ -19,4 +19,7 @@
   <string name="bac_label">АЛКОХОЛ НИВО:</string>
   <string name="sober_label">Трезни за отприлика:</string>
   <string name="enter_number_label">Додадете пива</string>
+  <string name="ok">ОК</string>
+  <string name="hours">ЧАСОВИ</string>
+  <string name="minutes">МИНУТИ</string>
 </resources>

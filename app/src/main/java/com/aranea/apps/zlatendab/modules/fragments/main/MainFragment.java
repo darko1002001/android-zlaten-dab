@@ -14,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.modules.TimeDialogFragment;
+import com.aranea.apps.zlatendab.util.AppUtil;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
-import com.sleepbot.datetimepicker.time.RadialPickerLayout;
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -82,7 +82,7 @@ public class MainFragment extends Fragment {
   private int mediumBeersNumber = 1;
   private int largeBeersNumbers = 1;
 
-  private TimePickerDialog timePickerDialog;
+  private TimeDialogFragment timeDialogFragment;
 
   @Nullable
   @Override
@@ -161,7 +161,8 @@ public class MainFragment extends Fragment {
             break;
         }
       } else if (view == intervalButton) {
-        timePickerDialog.show(getFragmentManager(), "Time");
+        //timePickerDialog.show(getFragmentManager(), "Time");
+        timeDialogFragment.show(getFragmentManager(), "Time");
       } else if (view == statusButton) {
 
       } else if (view == calculateButton) {
@@ -245,13 +246,13 @@ public class MainFragment extends Fragment {
   }
 
   private void initializeLayout(View view) {
-    timePickerDialog = new TimePickerDialog();
-    timePickerDialog.initialize(new TimePickerDialog.OnTimeSetListener() {
+    timeDialogFragment = new TimeDialogFragment();
+    timeDialogFragment.setOnTimeChosenListener(new TimeDialogFragment.OnTimeChosenListener() {
       @Override
-      public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
-        intervalButton.setText(hour + " hours,\n" + minute + " minutes");
+      public void onChoose(int hours, int minutes) {
+        intervalButton.setText(hours + " hours,\n" + minutes + " minutes");
       }
-    }, 1, 0, true, true);
+    });
     leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
       .colorRes(R.color.colorPrimary)
       .sizeDp(45);
@@ -294,7 +295,7 @@ public class MainFragment extends Fragment {
     pager.setOffscreenPageLimit(5);
     pager.setCurrentItem(Integer.MAX_VALUE / 2);
     pager.setClipChildren(false);
-    pager.setPageMargin(-200);
+    pager.setPageMargin(AppUtil.convertDpToPixel(-60, getActivity()));
     pager.setScrollDurationFactor(3);
   }
 }

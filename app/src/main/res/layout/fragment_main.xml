@@ -90,7 +90,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_margin="5dp"
-      android:background="@drawable/background_drawable_white">
+      android:background="@drawable/background_drawable_green">
 
       <TextView
         android:id="@+id/addBeersLabel"
