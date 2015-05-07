@@ -1,23 +1,19 @@
 package com.aranea.apps.zlatendab.modules.fragments;
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-
 import com.aranea.apps.zlatendab.R;
-
-import java.util.Locale;
+import com.aranea.apps.zlatendab.util.AppUtil;
+import com.aranea.apps.zlatendab.util.PreferenceUtil;
+import com.gc.materialdesign.views.Slider;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,66 +21,93 @@ import butterknife.OnClick;
 
 public class SettingsFragment extends Fragment {
 
-    @InjectView(R.id.textViewGender)
-    TextView textViewLabelGender;
-    @InjectView(R.id.textViewLanguage)
-    TextView textViewLabelLanguage;
-    @InjectView(R.id.radioButtonMale)
-    RadioButton radioButtonMale;
-    @InjectView(R.id.radioButtonFemale)
-    RadioButton radioButtonFemale;
-    @InjectView(R.id.imageButtonFlagUk)
-    ImageButton imageButtonUk;
-    @InjectView(R.id.imageButtonFlagMk)
-    ImageButton imageButtonMk;
-    @InjectView(R.id.editTextWeight)
-    EditText editTextWeight;
+  @InjectView(R.id.textViewGender)
+  TextView textViewLabelGender;
+  @InjectView(R.id.textViewLanguage)
+  TextView textViewLabelLanguage;
+  @InjectView(R.id.radioButtonMale)
+  RadioButton radioButtonMale;
+  @InjectView(R.id.radioButtonFemale)
+  RadioButton radioButtonFemale;
+  @InjectView(R.id.imageButtonFlagUk)
+  ImageButton imageButtonUk;
+  @InjectView(R.id.imageButtonFlagMk)
+  ImageButton imageButtonMk;
+  @InjectView(R.id.slider)
+  Slider slider;
+  @InjectView(R.id.chosenWeightLabel)
+  TextView chosenWeightLabel;
 
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_settings, container, false);
+    ButterKnife.inject(this, view);
+    return view;
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    ButterKnife.inject(this, view);
+    slider.setValue(PreferenceUtil.getWeightPreference().get());
+    chosenWeightLabel.setText(String.valueOf(PreferenceUtil.getWeightPreference().get()));
+    slider.setOnValueChangedListener(new OnSliderValueChangedListener());
+    switch (PreferenceUtil.getGenderPreference().get()) {
+      case 0:
+        radioButtonMale.setChecked(true);
+        break;
+      case 1:
+        radioButtonFemale.setChecked(true);
+        break;
+    }
+    updateTextViews();
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.reset(this);
+  }
+
+  @OnClick(R.id.radioButtonMale)
+   public void changeGenderMale() {
+    PreferenceUtil.getGenderPreference().set(0);
+  }
+
+  @OnClick(R.id.radioButtonFemale)
+  public void changeGenderFemale() {
+    PreferenceUtil.getGenderPreference().set(1);
+  }
+
+  @OnClick(R.id.imageButtonFlagUk)
+  public void changeLocaleUk() {
+    changeLocale("uk");
+    PreferenceUtil.getLanguagePreference().set(1);
+  }
+
+  @OnClick(R.id.imageButtonFlagMk)
+  public void changeLocaleMk() {
+    changeLocale("mk");
+    PreferenceUtil.getLanguagePreference().set(0);
+  }
+
+  private void changeLocale(String languageCode) {
+    AppUtil.changeLocale(getActivity(), languageCode);
+    updateTextViews();
+  }
+
+  private void updateTextViews() {
+    radioButtonFemale.setText(getString(R.string.radio_button_female));
+    radioButtonMale.setText(getString(R.string.radio_button_male));
+    textViewLabelGender.setText(getString(R.string.label_gender));
+    textViewLabelLanguage.setText(getString(R.string.label_language));
+  }
+
+  private class OnSliderValueChangedListener implements Slider.OnValueChangedListener {
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        ButterKnife.inject(this, view);
-        return view;
+    public void onValueChanged(int value) {
+      chosenWeightLabel.setText(String.valueOf(value));
+      PreferenceUtil.getWeightPreference().set(value);
     }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.inject(this, view);
-        updateTextViews();
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.reset(this);
-    }
-
-    @OnClick(R.id.imageButtonFlagUk)
-    public void changeLocaleUk() {
-        changeLocale("uk");
-    }
-
-    @OnClick(R.id.imageButtonFlagMk)
-    public void changeLocaleMk() {
-        changeLocale("mk");
-    }
-
-    private void changeLocale(String languageCode) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        Configuration configuration = getResources().getConfiguration();
-
-        configuration.locale = new Locale(languageCode.toLowerCase());
-        getResources().updateConfiguration(configuration, dm);
-        updateTextViews();
-    }
-
-    private void updateTextViews() {
-        radioButtonFemale.setText(getString(R.string.radio_button_female));
-        radioButtonMale.setText(getString(R.string.radio_button_male));
-        textViewLabelGender.setText(getString(R.string.label_gender));
-        editTextWeight.setHint(getString(R.string.edit_text_hint_weight));
-        textViewLabelLanguage.setText(getString(R.string.label_language));
-    }
+  }
 }

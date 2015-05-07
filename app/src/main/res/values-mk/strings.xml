@@ -10,7 +10,7 @@
   <string name="radio_button_macedonian">Македонски</string>
   <string name="label_gender">Пол</string>
   <string name="label_language">Јазик</string>
-  <string name="edit_text_hint_weight">Тежина</string>
+  <string name="label_weight">Тежина</string>
   <string name="share">Сподели</string>
   <string name="label_who">КОЈ Е ТВОЈОТ ДАБ?</string>
   <string name="label_time_interval">Колку долго си пиел?</string>
