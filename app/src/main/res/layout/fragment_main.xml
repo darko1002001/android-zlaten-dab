@@ -86,95 +86,113 @@
       android:textSize="20sp"
       android:textStyle="bold|italic"/>
 
-    <LinearLayout
+    <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_margin="5dp"
-      android:background="@drawable/background_drawable_white"
-      android:orientation="horizontal">
+      android:background="@drawable/background_drawable_white">
+
+      <TextView
+        android:id="@+id/addBeersLabel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/enter_number_label"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="20sp"
+        android:visibility="visible"/>
 
       <LinearLayout
-        android:id="@+id/numberLargeLayout"
-        android:layout_width="0dp"
+        android:id="@+id/beerNumbersLayout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="2dp">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="@string/large"
-          android:textColor="@color/colorPrimary"
-          android:textStyle="bold|italic"/>
-
-        <TextView
-          android:id="@+id/numberLarge"
-          android:layout_width="match_parent"
+        <LinearLayout
+          android:id="@+id/numberLargeLayout"
+          android:layout_width="0dp"
           android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="1"
-          android:textColor="@color/textColorPrimary"
-          android:textSize="20sp"/>
+          android:layout_weight="1"
+          android:orientation="vertical"
+          android:padding="2dp">
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/large"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic"/>
+
+          <TextView
+            android:id="@+id/numberLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/numberMediumLayout"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:orientation="vertical"
+          android:padding="2dp">
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/medium"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic"/>
+
+          <TextView
+            android:id="@+id/numberMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/numberSmallLayout"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:orientation="vertical"
+          android:padding="2dp">
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/small"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic"/>
+
+          <TextView
+            android:id="@+id/numberSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
 
       </LinearLayout>
 
-      <LinearLayout
-        android:id="@+id/numberMediumLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="2dp">
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="@string/medium"
-          android:textColor="@color/colorPrimary"
-          android:textStyle="bold|italic"/>
-
-        <TextView
-          android:id="@+id/numberMedium"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="4"
-          android:textColor="@color/textColorPrimary"
-          android:textSize="20sp"/>
-
-      </LinearLayout>
-
-      <LinearLayout
-        android:id="@+id/numberSmallLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="2dp">
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:text="@string/small"
-          android:textColor="@color/colorPrimary"
-          android:textStyle="bold|italic"/>
-
-        <TextView
-          android:id="@+id/numberSmall"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center"
-          android:text="8"
-          android:textColor="@color/textColorPrimary"
-          android:textSize="20sp"/>
-
-      </LinearLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
   </LinearLayout>
 
@@ -205,6 +223,7 @@
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
       android:gravity="start"
+      android:text="0 hours,\n0 minutes"
       android:textColor="@color/colorPrimary"
       android:textSize="12sp"/>
 
@@ -245,7 +264,7 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="2"
-          android:text="0,08%"
+          android:text="0,00%"
           android:textColor="@color/textColorPrimary"
           android:textSize="30sp"/>
 
@@ -270,10 +289,11 @@
         android:textStyle="bold"/>
 
       <TextView
+        android:id="@+id/timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|start"
-        android:text="02:23:14"
+        android:text="00:00:00"
         android:textColor="@color/textColorPrimary"
         android:textSize="25sp"/>
 

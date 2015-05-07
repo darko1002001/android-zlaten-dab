@@ -18,4 +18,5 @@
   <string name="button_alarm">АЛАРМ</string>
   <string name="bac_label">АЛКОХОЛ НИВО:</string>
   <string name="sober_label">Трезни за отприлика:</string>
+  <string name="enter_number_label">Додадете пива</string>
 </resources>

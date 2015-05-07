@@ -27,11 +27,4 @@
     <item name="android:paddingLeft">15dp</item>
   </style>
 
-  <style name="CustomBetterPickerTheme">
-    <item name="bpDialogBackground">@color/colorPrimary</item>
-    <item name="bpTextColor">@color/textColorPrimary</item>
-    <item name="bpButtonBackground">@color/colorPrimary</item>
-    <item name="bpDividerColor">@color/zlatenDab</item>
-  </style>
-
 </resources>

@@ -14,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
-import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
-import com.doomonafireball.betterpickers.radialtimepicker.RadialTimePickerDialog;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,8 +25,7 @@ import butterknife.InjectView;
 /**
  * Created by MephistoFloyd on 5/4/2015.
  */
-public class MainFragment extends Fragment implements
-  DatePickerDialogFragment.DatePickerDialogHandler {
+public class MainFragment extends Fragment {
 
   @InjectView(R.id.pager)
   CustomViewPager pager;
@@ -40,6 +39,10 @@ public class MainFragment extends Fragment implements
   ImageButton leftButton;
   @InjectView(R.id.amountLabel)
   TextView amountLabel;
+  @InjectView(R.id.addBeersLabel)
+  TextView addBeersLabel;
+  @InjectView(R.id.beerNumbersLayout)
+  LinearLayout beerNumbersLayout;
   @InjectView(R.id.numberLarge)
   TextView numberLarge;
   @InjectView(R.id.numberLargeLayout)
@@ -62,6 +65,8 @@ public class MainFragment extends Fragment implements
   Button calculateButton;
   @InjectView(R.id.alarmButton)
   Button alarmButton;
+  @InjectView(R.id.timer)
+  TextView timer;
 
   private ViewPagerAdapter viewPagerAdapter;
   private int currentPosition;
@@ -73,7 +78,11 @@ public class MainFragment extends Fragment implements
   private IconDrawable statusDrawableTaxi;
   private IconDrawable statusDrawableOk;
 
-  private RadialTimePickerDialog radialTimePickerDialog;
+  private int smallBeersNumber = 1;
+  private int mediumBeersNumber = 1;
+  private int largeBeersNumbers = 1;
+
+  private TimePickerDialog timePickerDialog;
 
   @Nullable
   @Override
@@ -81,59 +90,7 @@ public class MainFragment extends Fragment implements
     View view = inflater.inflate(R.layout.fragment_main, container, false);
     ButterKnife.inject(this, view);
 
-    intervalButton.setText(0 + " hours,\n" + 0 + " minutes");
-    radialTimePickerDialog = new RadialTimePickerDialog();
-    radialTimePickerDialog.initialize(new RadialTimePickerDialog.OnTimeSetListener() {
-      @Override
-      public void onTimeSet(RadialTimePickerDialog radialTimePickerDialog, int hour, int minute) {
-        intervalButton.setText(hour + " hours,\n" + minute + " minutes");
-      }
-    }, 1, 0, true);
-
-    leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
-      .colorRes(R.color.colorPrimary)
-      .sizeDp(45);
-    rightChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_right)
-      .colorRes(R.color.colorPrimary)
-      .sizeDp(45);
-    addDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_plus)
-      .colorRes(R.color.textColorPrimary)
-      .sizeDp(40);
-
-    statusDrawableTaxi = new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
-      .colorRes(R.color.taxiYellow)
-      .sizeDp(25);
-    statusDrawableOk = new IconDrawable(getActivity(), Iconify.IconValue.fa_check)
-      .colorRes(R.color.zlatenDab)
-      .sizeDp(25);
-    statusButton.setImageDrawable(statusDrawableTaxi);
-    statusButton.setOnClickListener(new OnButtonClickListener());
-    statusButton.setOnTouchListener(new OnButtonTouchListener());
-
-    rightButton.setImageDrawable(rightChevronDrawable);
-    leftButton.setImageDrawable(leftChevronDrawable);
-    addButton.setImageDrawable(addDrawable);
-    leftButton.setOnClickListener(new OnButtonClickListener());
-    rightButton.setOnClickListener(new OnButtonClickListener());
-    addButton.setOnClickListener(new OnButtonClickListener());
-    leftButton.setOnTouchListener(new OnButtonTouchListener());
-    rightButton.setOnTouchListener(new OnButtonTouchListener());
-    addButton.setOnTouchListener(new OnButtonTouchListener());
-    calculateButton.setOnClickListener(new OnButtonClickListener());
-    alarmButton.setOnClickListener(new OnButtonClickListener());
-    intervalButton.setOnClickListener(new OnButtonClickListener());
-
-    pagerContainer = (PagerContainer) view.findViewById(R.id.pager_container);
-    viewPagerAdapter = new ViewPagerAdapter(getActivity());
-    currentPosition = viewPagerAdapter.getCount() / 2;
-    pager = (CustomViewPager) pagerContainer.getViewPager();
-    pager.setAdapter(viewPagerAdapter);
-    pager.setPageTransformer(true, new PageTransformator());
-    pager.setOffscreenPageLimit(5);
-    pager.setCurrentItem(Integer.MAX_VALUE / 2);
-    pager.setClipChildren(false);
-    pager.setPageMargin(-200);
-    pager.setScrollDurationFactor(3);
+    initializeLayout(view);
 
     pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
@@ -182,11 +139,6 @@ public class MainFragment extends Fragment implements
     ButterKnife.reset(this);
   }
 
-  @Override
-  public void onDialogDateSet(int i, int i2, int i3, int i4) {
-
-  }
-
   private class OnButtonClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
@@ -195,16 +147,21 @@ public class MainFragment extends Fragment implements
       } else if (view == rightButton) {
         pager.setCurrentItem(currentPosition + 1, true);
       } else if (view == addButton) {
+        addBeersLabel.setVisibility(View.GONE);
+        beerNumbersLayout.setVisibility(View.VISIBLE);
         switch (realPosition) {
           case 0:
+            numberSmall.setText(String.valueOf(smallBeersNumber++));
             break;
           case 1:
+            numberMedium.setText(String.valueOf(mediumBeersNumber++));
             break;
           case 2:
+            numberLarge.setText(String.valueOf(largeBeersNumbers++));
             break;
         }
       } else if (view == intervalButton) {
-        radialTimePickerDialog.show(getFragmentManager(), "Time");
+        timePickerDialog.show(getFragmentManager(), "Time");
       } else if (view == statusButton) {
 
       } else if (view == calculateButton) {
@@ -285,5 +242,59 @@ public class MainFragment extends Fragment implements
         .colorRes(R.color.colorPrimary)
         .sizeDp(40);
     }
+  }
+
+  private void initializeLayout(View view) {
+    timePickerDialog = new TimePickerDialog();
+    timePickerDialog.initialize(new TimePickerDialog.OnTimeSetListener() {
+      @Override
+      public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
+        intervalButton.setText(hour + " hours,\n" + minute + " minutes");
+      }
+    }, 1, 0, true, true);
+    leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
+      .colorRes(R.color.colorPrimary)
+      .sizeDp(45);
+    rightChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_right)
+      .colorRes(R.color.colorPrimary)
+      .sizeDp(45);
+    addDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_plus)
+      .colorRes(R.color.textColorPrimary)
+      .sizeDp(40);
+
+    statusDrawableTaxi = new IconDrawable(getActivity(), Iconify.IconValue.fa_taxi)
+      .colorRes(R.color.taxiYellow)
+      .sizeDp(25);
+    statusDrawableOk = new IconDrawable(getActivity(), Iconify.IconValue.fa_check)
+      .colorRes(R.color.zlatenDab)
+      .sizeDp(25);
+    statusButton.setImageDrawable(statusDrawableTaxi);
+    statusButton.setOnClickListener(new OnButtonClickListener());
+    statusButton.setOnTouchListener(new OnButtonTouchListener());
+
+    rightButton.setImageDrawable(rightChevronDrawable);
+    leftButton.setImageDrawable(leftChevronDrawable);
+    addButton.setImageDrawable(addDrawable);
+    leftButton.setOnClickListener(new OnButtonClickListener());
+    rightButton.setOnClickListener(new OnButtonClickListener());
+    addButton.setOnClickListener(new OnButtonClickListener());
+    leftButton.setOnTouchListener(new OnButtonTouchListener());
+    rightButton.setOnTouchListener(new OnButtonTouchListener());
+    addButton.setOnTouchListener(new OnButtonTouchListener());
+    calculateButton.setOnClickListener(new OnButtonClickListener());
+    alarmButton.setOnClickListener(new OnButtonClickListener());
+    intervalButton.setOnClickListener(new OnButtonClickListener());
+
+    pagerContainer = (PagerContainer) view.findViewById(R.id.pager_container);
+    viewPagerAdapter = new ViewPagerAdapter(getActivity());
+    currentPosition = viewPagerAdapter.getCount() / 2;
+    pager = (CustomViewPager) pagerContainer.getViewPager();
+    pager.setAdapter(viewPagerAdapter);
+    pager.setPageTransformer(true, new PageTransformator());
+    pager.setOffscreenPageLimit(5);
+    pager.setCurrentItem(Integer.MAX_VALUE / 2);
+    pager.setClipChildren(false);
+    pager.setPageMargin(-200);
+    pager.setScrollDurationFactor(3);
   }
 }
