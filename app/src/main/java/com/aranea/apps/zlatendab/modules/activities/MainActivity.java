@@ -55,9 +55,6 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    MenuItem menuItemInfo = menu.add(0, OPTIONS_MENU_ITEM_INFO, 0, getString(R.string.action_info));
-    menuItemInfo.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    menuItemInfo.setIcon(ImageUtil.getIcon(getApplicationContext(), Iconify.IconValue.fa_info, android.R.color.white, 20));
     MenuItem menuItemShare = menu.add(0, OPTIONS_MENU_ITEM_SHARE, 0, getString(R.string.action_share));
     menuItemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     menuItemShare.setIcon(ImageUtil.getIcon(getApplicationContext(), Iconify.IconValue.fa_share_alt, android.R.color.white, 20));
@@ -74,8 +71,6 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
         if (fragmentManager.findFragmentByTag(SettingsFragment.class.getSimpleName()) == null)
           FragmentUtil.replaceFragment(fragmentManager,
             R.id.fragmentContainer, new SettingsFragment(), SettingsFragment.class.getSimpleName());
-        return true;
-      case OPTIONS_MENU_ITEM_INFO:
         return true;
       case OPTIONS_MENU_ITEM_SHARE:
         Intent sendIntent = new Intent();

@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -73,7 +72,7 @@ public class MathUtil {
     return bac / BAC_ELIMINATION_PER_HOUR;
   }
 
-  public static void calculateAndSaveSoberTime(double hoursUntilSober) {
+  public static String calculateAndSaveSoberTime(double hoursUntilSober) {
     Log.e("HOURS UNTIL SOBER", "" + hoursUntilSober);
     int secondsUntilSober = (int) hoursUntilSober * 3600;
     Log.e("SECONDS UNTIL SOBER", "" + secondsUntilSober);
@@ -81,25 +80,19 @@ public class MathUtil {
     calendar.add(Calendar.SECOND, secondsUntilSober);
     Log.e("FUTURE TIME", calendar.getTime().toString());
     PreferenceUtil.getSoberTimePreference().set(calendar.getTime().toString());
+    return String.format("%02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
+      calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
   }
 
-  public static double refreshTimeUntilSober() {
-    Date soberTime = null;
+  public static String getSoberTime() {
     SimpleDateFormat format = new SimpleDateFormat("E MMM dd kk:mm:ss zzzz yyyy", Locale.getDefault());
-    Log.e("DATE IN PREFS", PreferenceUtil.getSoberTimePreference().get());
+    Calendar soberTime = Calendar.getInstance();
     try {
-      soberTime = format.parse(PreferenceUtil.getSoberTimePreference().get());
-      Log.e("PARSED", "" + soberTime.getTime());
+      soberTime.setTime(format.parse(PreferenceUtil.getSoberTimePreference().get()));
     } catch (ParseException e) {
-      Log.e("refreshTimeUntilSober", "Parse exception");
+      Log.e("getSoberTime()", "Parse error!");
     }
-    Calendar calendar = Calendar.getInstance();
-    Date currentTime = calendar.getTime();
-    if (soberTime != null) {
-      Log.e("sober time", "" + soberTime.getTime() / 3600000);
-      Log.e("current time", "" + currentTime.getTime() / 3600000);
-      Log.e("DIFFERENCE IN HOURS", "" + (soberTime.getTime() - currentTime.getTime()) / 3600000);
-      return (soberTime.getTime() - currentTime.getTime()) / 3600000;
-    } else return 0.0;
+    return String.format("%02d:%02d:%02d", soberTime.get(Calendar.HOUR_OF_DAY),
+      soberTime.get(Calendar.MINUTE), soberTime.get(Calendar.SECOND));
   }
 }

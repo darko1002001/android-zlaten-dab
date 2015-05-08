@@ -1,4 +1,4 @@
-package com.aranea.apps.zlatendab.modules;
+package com.aranea.apps.zlatendab.modules.fragments;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -49,7 +49,7 @@ public class TimeDialogFragment extends DialogFragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.dialog_choose_time, container, false);
+    View view = inflater.inflate(R.layout.dialog_fragment_choose_time, container, false);
     ButterKnife.inject(this, view);
 
     sliderHours.setOnValueChangedListener(new Slider.OnValueChangedListener() {
