@@ -42,6 +42,8 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
 
     FragmentUtil.replaceFragment(fragmentManager,
       R.id.fragmentContainer, new MainFragment(), MainFragment.class.getSimpleName());
+
+
   }
 
   @Override
