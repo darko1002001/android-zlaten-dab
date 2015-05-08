@@ -20,6 +20,7 @@ import com.aranea.apps.zlatendab.modules.fragments.ResetDialogFragment;
 import com.aranea.apps.zlatendab.modules.fragments.TimeDialogFragment;
 import com.aranea.apps.zlatendab.modules.activities.MainActivity;
 import com.aranea.apps.zlatendab.modules.fragments.TaxiDialogFragment;
+import com.aranea.apps.zlatendab.modules.fragments.WarningDialogFragment;
 import com.aranea.apps.zlatendab.util.AppUtil;
 import com.aranea.apps.zlatendab.util.MathUtil;
 import com.aranea.apps.zlatendab.util.PreferenceUtil;
@@ -431,6 +432,7 @@ public class MainFragment extends Fragment {
       statusButton.setEnabled(true);
       bacLevel.setTextColor(getResources().getColor(R.color.red));
       statusButton.setImageDrawable(statusDrawableTaxi);
+      showWarningDialog();
     } else {
       bacLevel.setTextColor(getResources().getColor(R.color.textColorPrimary));
       statusButton.setImageDrawable(statusDrawableOk);
@@ -466,5 +468,10 @@ public class MainFragment extends Fragment {
   private void showCabDialog() {
     TaxiDialogFragment taxiDialogFragment = new TaxiDialogFragment();
     taxiDialogFragment.show(getActivity().getSupportFragmentManager(), TaxiDialogFragment.TAG);
+  }
+
+  private void showWarningDialog() {
+    WarningDialogFragment warningDialogFragment = new WarningDialogFragment();
+    warningDialogFragment.show(getActivity().getSupportFragmentManager(), WarningDialogFragment.TAG);
   }
 }

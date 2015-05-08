@@ -47,4 +47,6 @@
   <string name="reset_text_two">Do you want to start a new timer?</string>
 
   <string name="sober">You are sober.</string>
+  <string name="dialog_warning_info">The allowed limit in RM for drivers with %s driving license is</string>
+  <string name="dialog_warning_bac">You musn\'t drive!!!</string>
 </resources>

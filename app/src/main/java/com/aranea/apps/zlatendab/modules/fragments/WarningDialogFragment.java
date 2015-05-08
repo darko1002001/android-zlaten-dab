@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.util.MathUtil;
 import com.aranea.apps.zlatendab.util.PreferenceUtil;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
@@ -29,6 +30,8 @@ public class WarningDialogFragment extends DialogFragment {
 
     @InjectView(R.id.textViewWarning)
     TextView textViewWarning;
+    @InjectView(R.id.textViewWarningBac)
+    TextView textViewWarningBac;
     @InjectView(R.id.buttonOk)
     Button buttonWarning;
 
@@ -46,6 +49,12 @@ public class WarningDialogFragment extends DialogFragment {
         ButterKnife.inject(this, view);
 
         initWarningText();
+        buttonWarning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WarningDialogFragment.this.dismiss();
+            }
+        });
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return view;
@@ -58,8 +67,14 @@ public class WarningDialogFragment extends DialogFragment {
     }
 
     private void initWarningText() {
-        int yearsDriving = PreferenceUtil.getYearsDriving().get();
+        int yearsDrivingPref = PreferenceUtil.getYearsDriving().get();
+        double bac = PreferenceUtil.getTempBac().get();
+        double allowedBac = (yearsDrivingPref == 0) ? MathUtil.LEGAL_LIMIT_WITHOUT_TWO_YEARS : MathUtil.LEGAL_LIMIT_WITH_TWO_YEARS;
+        String yearsDriving = (yearsDrivingPref == 0) ? getString(R.string.radio_button_driving_license_less) : getString(R.string.radio_button_driving_license_more);
 
+        String warning = String.format(context.getString(R.string.dialog_warning_info), yearsDriving);
+        textViewWarning.setText(warning + " " + allowedBac);
+        textViewWarningBac.setText(String.valueOf(PreferenceUtil.getTempBac().get()) + "%");
     }
 
 }
