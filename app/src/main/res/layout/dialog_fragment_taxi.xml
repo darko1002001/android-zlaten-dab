@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/black"
     android:padding="10dp">
     <!-- Global -->
     <LinearLayout
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="25sp"
+            android:textColor="@android:color/white"
             android:text="@string/label_taxi_global" />
 
         <ImageView
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="25sp"
+            android:textColor="@android:color/white"
             android:text="@string/label_taxi_riva" />
 
         <ImageView
@@ -66,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
+            android:textColor="@android:color/white"
             android:text="@string/label_taxi_pulstars" />
 
         <ImageView

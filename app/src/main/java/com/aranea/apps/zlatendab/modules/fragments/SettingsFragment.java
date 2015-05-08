@@ -58,7 +58,7 @@ public class SettingsFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     ButterKnife.inject(this, view);
     slider.setValue(PreferenceUtil.getWeightPreference().get());
-    chosenWeightLabel.setText(String.valueOf(PreferenceUtil.getWeightPreference().get()));
+    chosenWeightLabel.setText(String.valueOf(PreferenceUtil.getWeightPreference().get()) + " " + "Kg");
     slider.setOnValueChangedListener(new OnSliderValueChangedListener());
     setGender();
     setDrivingLicense();
@@ -124,7 +124,7 @@ public class SettingsFragment extends Fragment {
   private class OnSliderValueChangedListener implements Slider.OnValueChangedListener {
     @Override
     public void onValueChanged(int value) {
-      chosenWeightLabel.setText(String.valueOf(value));
+      chosenWeightLabel.setText(String.valueOf(value) + " " + "Kg");
       PreferenceUtil.getWeightPreference().set(value);
     }
   }
