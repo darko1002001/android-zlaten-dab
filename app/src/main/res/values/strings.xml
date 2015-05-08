@@ -8,6 +8,8 @@
   <string name="radio_button_female">Female</string>
   <string name="radio_button_english">English</string>
   <string name="radio_button_macedonian">Macedonian</string>
+  <string name="radio_button_driving_license_less">&lt; 2 years</string>
+  <string name="radio_button_driving_license_more">&gt; 2 years</string>
   <string name="label_gender">Gender</string>
   <string name="label_language">Language</string>
   <string name="label_weight">Weight</string>
@@ -20,6 +22,7 @@
   <string name="bac_label">YOUR BAC LEVEL:</string>
   <string name="sober_label">Sober in approximately:</string>
   <string name="enter_number_label">Add beers</string>
+  <string name="label_driving_license">Driving License</string>
 
   <string name="large">1,5L</string>
   <string name="medium">0,5L</string>

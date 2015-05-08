@@ -8,11 +8,14 @@
   <string name="radio_button_female">Женско</string>
   <string name="radio_button_english">Англиски</string>
   <string name="radio_button_macedonian">Македонски</string>
+  <string name="radio_button_driving_license_less">&lt; 2 години</string>
+  <string name="radio_button_driving_license_more">&gt; 2 години</string>
   <string name="label_gender">Пол</string>
   <string name="label_language">Јазик</string>
   <string name="label_weight">Тежина</string>
   <string name="share">Сподели</string>
   <string name="label_who">КОЈ Е ТВОЈОТ ДАБ?</string>
+  <string name="label_driving_license">Возачка Дозвола</string>
   <string name="label_time_interval">Колку долго си пиел?</string>
   <string name="button_calculate">ПРЕСМЕТАЈ</string>
   <string name="button_alarm">АЛАРМ</string>

@@ -21,9 +21,9 @@ import butterknife.OnClick;
 
 public class SettingsFragment extends Fragment {
 
-  @InjectView(R.id.textViewGender)
+  @InjectView(R.id.textViewLabelGender)
   TextView textViewLabelGender;
-  @InjectView(R.id.textViewLanguage)
+  @InjectView(R.id.textViewLabelLanguage)
   TextView textViewLabelLanguage;
   @InjectView(R.id.radioButtonMale)
   RadioButton radioButtonMale;
@@ -37,6 +37,14 @@ public class SettingsFragment extends Fragment {
   Slider slider;
   @InjectView(R.id.chosenWeightLabel)
   TextView chosenWeightLabel;
+  @InjectView(R.id.textViewLabelWeight)
+  TextView textViewLabelWeight;
+  @InjectView(R.id.textViewLabelDrivingLicense)
+  TextView textViewLabelDrivingLicense;
+  @InjectView(R.id.radioButtonDrivingLicenseLess)
+  RadioButton radioButtonDrivingLicenseLess;
+  @InjectView(R.id.radioButtonDrivingLicenseMore)
+  RadioButton radioButtonDrivingLicenseMore;
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,14 +60,8 @@ public class SettingsFragment extends Fragment {
     slider.setValue(PreferenceUtil.getWeightPreference().get());
     chosenWeightLabel.setText(String.valueOf(PreferenceUtil.getWeightPreference().get()));
     slider.setOnValueChangedListener(new OnSliderValueChangedListener());
-    switch (PreferenceUtil.getGenderPreference().get()) {
-      case 0:
-        radioButtonMale.setChecked(true);
-        break;
-      case 1:
-        radioButtonFemale.setChecked(true);
-        break;
-    }
+    setGender();
+    setDrivingLicense();
     updateTextViews();
   }
 
@@ -78,6 +80,17 @@ public class SettingsFragment extends Fragment {
   public void changeGenderFemale() {
     PreferenceUtil.getGenderPreference().set(1);
   }
+
+  @OnClick(R.id.radioButtonDrivingLicenseLess)
+  public void changeDrivingLicenseLess() {
+    PreferenceUtil.getYearsDriving().set(0);
+  }
+
+  @OnClick(R.id.radioButtonDrivingLicenseMore)
+  public void changeDrivingLicenseMore() {
+    PreferenceUtil.getYearsDriving().set(1);
+  }
+
 
   @OnClick(R.id.imageButtonFlagUk)
   public void changeLocaleUk() {
@@ -101,6 +114,11 @@ public class SettingsFragment extends Fragment {
     radioButtonMale.setText(getString(R.string.radio_button_male));
     textViewLabelGender.setText(getString(R.string.label_gender));
     textViewLabelLanguage.setText(getString(R.string.label_language));
+    textViewLabelWeight.setText(getString(R.string.label_weight));
+    textViewLabelDrivingLicense.setText(getString(R.string.label_driving_license));
+    radioButtonDrivingLicenseLess.setText(getString(R.string.radio_button_driving_license_less));
+    radioButtonDrivingLicenseMore.setText(getString(R.string.radio_button_driving_license_more));
+
   }
 
   private class OnSliderValueChangedListener implements Slider.OnValueChangedListener {
@@ -108,6 +126,28 @@ public class SettingsFragment extends Fragment {
     public void onValueChanged(int value) {
       chosenWeightLabel.setText(String.valueOf(value));
       PreferenceUtil.getWeightPreference().set(value);
+    }
+  }
+
+  private void setGender() {
+    switch (PreferenceUtil.getGenderPreference().get()) {
+      case 0:
+        radioButtonMale.setChecked(true);
+        break;
+      case 1:
+        radioButtonFemale.setChecked(true);
+        break;
+    }
+  }
+
+  private void setDrivingLicense() {
+    switch (PreferenceUtil.getYearsDriving().get()) {
+      case 0:
+        radioButtonDrivingLicenseLess.setChecked(true);
+        break;
+      case 1:
+        radioButtonDrivingLicenseMore.setChecked(true);
+        break;
     }
   }
 }

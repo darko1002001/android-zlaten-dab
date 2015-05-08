@@ -1,109 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Gender -->
+        <LinearLayout
+            android:id="@+id/linearLayoutGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_drawable_settings"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textViewLabelGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupGender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background"
-                android:padding="20dp">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-  <TextView
-    android:id="@+id/textViewGender"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:textColor="@android:color/white"
-    android:textSize="20sp"/>
+                <RadioButton
+                    android:id="@+id/radioButtonMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-  <RadioGroup
-    android:id="@+id/radioGroupGender"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/textViewGender"
-    android:orientation="horizontal"
-    android:padding="10dp">
+                <RadioButton
+                    android:id="@+id/radioButtonFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+        </LinearLayout>
 
-    <RadioButton
-      android:id="@+id/radioButtonMale"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      />
+        <!-- Weight -->
+        <LinearLayout
+            android:id="@+id/linearLayoutWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_drawable_settings"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <RadioButton
-      android:id="@+id/radioButtonFemale"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      />
-  </RadioGroup>
+            <TextView
+                android:id="@+id/textViewLabelWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioGroupGender"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
-  <TextView
-    android:id="@+id/textViewWeight"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/radioGroupGender"
-    android:layout_marginTop="20dp"
-    android:text="@string/label_weight"
-    android:textColor="@android:color/white"
-    android:textSize="20sp"/>
 
-  <LinearLayout
-    android:id="@+id/weightLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/textViewWeight"
-    android:orientation="vertical">
+            <com.gc.materialdesign.views.Slider
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                materialdesign:max="250"
+                materialdesign:min="0" />
 
-    <com.gc.materialdesign.views.Slider
-      android:id="@+id/slider"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/colorPrimary"
-      materialdesign:max="250"
-      materialdesign:min="0"/>
+            <TextView
+                android:id="@+id/chosenWeightLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="end"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-      android:id="@+id/chosenWeightLabel"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="20dp"
-      android:layout_marginRight="20dp"
-      android:gravity="end"
-      android:text="0"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
+        </LinearLayout>
 
-  </LinearLayout>
+        <!-- Language -->
+        <LinearLayout
+            android:id="@+id/linearLayoutLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_drawable_settings"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-  <TextView
-    android:id="@+id/textViewLanguage"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/weightLayout"
-    android:layout_marginTop="20dp"
-    android:textColor="@android:color/white"
-    android:textSize="20sp"/>
 
-  <LinearLayout
-    android:id="@+id/linearLayoutLanguage"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/textViewLanguage"
-    android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textViewLabelLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
-    <ImageButton
-      android:id="@+id/imageButtonFlagMk"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      android:background="@null"
-      android:src="@drawable/icon_flag_mk"/>
+            <LinearLayout
+                android:id="@+id/linearLayoutFlags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-    <ImageButton
-      android:id="@+id/imageButtonFlagUk"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      android:background="@null"
-      android:src="@drawable/icon_flag_uk"/>
-  </LinearLayout>
+                <ImageButton
+                    android:id="@+id/imageButtonFlagMk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_flag_mk" />
 
-</RelativeLayout>
+                <ImageButton
+                    android:id="@+id/imageButtonFlagUk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_flag_uk" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Driving License -->
+        <LinearLayout
+            android:id="@+id/linearLayoutDrivingLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_drawable_settings"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/textViewLabelDrivingLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupDrivingLicense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonDrivingLicenseLess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonDrivingLicenseMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
