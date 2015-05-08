@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">ЗлатенДаб</string>
+  <string name="app_name">ДабDrive?</string>
   <string name="action_settings">Settings</string>
   <string name="action_share">Сподели</string>
   <string name="radio_button_male">Машко</string>
@@ -40,4 +40,6 @@
   <string name="warning">ВНИМАНИЕ!</string>
   <string name="reset_text_one">Имате поставено тајмер! Следната пресметка ќе го рестартира тајмерот.</string>
   <string name="reset_text_two">Дали сакате нов тајмер?</string>
+
+  <string name="sober">Трезни сте.</string>
 </resources>

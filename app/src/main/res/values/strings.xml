@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">ZlatenDab</string>
+  <string name="app_name">DabDrive?</string>
   <string name="action_settings">Settings</string>
   <string name="action_share">Share</string>
   <string name="radio_button_male">Male</string>
@@ -19,7 +19,7 @@
   <string name="button_alarm">SET ALARM</string>
   <string name="button_reset">RESET</string>
   <string name="bac_label">YOUR BAC LEVEL:</string>
-  <string name="sober_label">You will be sober in:</string>
+  <string name="sober_label">You will be completely sober in:</string>
   <string name="enter_number_label">Add beers</string>
   <string name="label_driving_license">Driving License</string>
 
@@ -45,4 +45,6 @@
   <string name="warning">WARNING!</string>
   <string name="reset_text_one">You have a timer set! The next calculation will reset the timer.</string>
   <string name="reset_text_two">Do you want to start a new timer?</string>
+
+  <string name="sober">You are sober.</string>
 </resources>

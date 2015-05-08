@@ -1,6 +1,9 @@
 package com.aranea.apps.zlatendab.util;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.aranea.apps.zlatendab.R;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -72,16 +75,21 @@ public class MathUtil {
     return bac / BAC_ELIMINATION_PER_HOUR;
   }
 
-  public static String calculateAndSaveSoberTime(double hoursUntilSober) {
+  public static String calculateAndSaveSoberTime(Context context, double hoursUntilSober) {
     Log.e("HOURS UNTIL SOBER", "" + hoursUntilSober);
     int secondsUntilSober = (int) hoursUntilSober * 3600;
     Log.e("SECONDS UNTIL SOBER", "" + secondsUntilSober);
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.SECOND, secondsUntilSober);
     Log.e("FUTURE TIME", calendar.getTime().toString());
-    PreferenceUtil.getSoberTimePreference().set(calendar.getTime().toString());
-    return String.format("%02d:%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY),
-      calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+    Log.e("CURRENT TIME", Calendar.getInstance().getTime().toString());
+    if (calendar.getTime().toString().equals(Calendar.getInstance().getTime().toString())) {
+      return context.getString(R.string.sober);
+    } else {
+      PreferenceUtil.getSoberTimePreference().set(calendar.getTime().toString());
+      return String.format("%02d:%02d:%02d " + context.getString(R.string.after_time_label), calendar.get(Calendar.HOUR_OF_DAY),
+        calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+    }
   }
 
   public static String getSoberTime() {

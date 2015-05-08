@@ -99,7 +99,7 @@
         android:gravity="center"
         android:text="@string/enter_number_label"
         android:textColor="@color/textColorPrimary"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
       <LinearLayout
         android:id="@+id/beerNumbersLayout"
@@ -287,7 +287,7 @@
         android:layout_height="wrap_content"
         android:gravity="center|start"
         android:textColor="@color/textColorPrimary"
-        android:textSize="25sp"/>
+        android:textSize="24sp"/>
 
     </LinearLayout>
 
@@ -296,17 +296,17 @@
       android:layout_height="match_parent"
       android:gravity="center"
       android:orientation="vertical"
-      android:paddingTop="5dp"
       android:paddingBottom="5dp"
+      android:paddingLeft="10dp"
       android:paddingRight="10dp"
-      android:paddingLeft="10dp">
+      android:paddingTop="5dp">
 
       <Button
         android:id="@+id/calculateButton"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/zlatenDab"
-        android:text="@string/button_calculate"/>
+        android:text="@string/button_calculate"
+        android:textColor="@color/zlatenDab"/>
 
       <Button
         android:id="@+id/alarmButton"
@@ -318,10 +318,10 @@
       <Button
         android:id="@+id/resetButton"
         android:layout_width="110dp"
-        android:textColor="@color/red"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/button_reset"/>
+        android:text="@string/button_reset"
+        android:textColor="@color/red"/>
 
     </LinearLayout>
 

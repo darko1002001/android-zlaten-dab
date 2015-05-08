@@ -226,7 +226,7 @@ public class MainFragment extends Fragment {
       } else if (view == statusButton) {
         showCabDialog();
       } else if (view == calculateButton) {
-        if (PreferenceUtil.getTempBac().get() != 0.0 ||
+        if (PreferenceUtil.getTempBac().get() != 0.0 &&
           !TextUtils.isEmpty(PreferenceUtil.getSoberTimePreference().get())) {
           resetDialogFragment.show(getFragmentManager(), "Reset");
         } else {
@@ -424,8 +424,7 @@ public class MainFragment extends Fragment {
 
     PreferenceUtil.getTempBac().set(resultBac);
     bacLevel.setText(String.valueOf(resultBac) + "%");
-    timerLabel.setText(MathUtil.calculateAndSaveSoberTime(MathUtil.getHoursUntilSober(resultBac)) + " " +
-      getString(R.string.after_time_label));
+    timerLabel.setText(MathUtil.calculateAndSaveSoberTime(getActivity(), MathUtil.getHoursUntilSober(resultBac)));
 
     statusButton.setVisibility(View.VISIBLE);
     if (resultBac > MathUtil.getLegalLimit()) {
