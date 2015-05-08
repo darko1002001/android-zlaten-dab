@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
       case OPTIONS_MENU_ITEM_SHARE:
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "I'm drunk!");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://zlatendab.com.mk/");
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
         return true;

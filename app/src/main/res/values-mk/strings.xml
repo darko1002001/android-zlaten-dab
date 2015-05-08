@@ -15,7 +15,7 @@
   <string name="share">Сподели</string>
   <string name="label_who">КОЈ Е ТВОЈОТ ДАБ?</string>
   <string name="label_driving_license">Возачка Дозвола</string>
-  <string name="label_time_interval">Колку долго си пиел?</string>
+  <string name="label_time_interval">Колку долго сте пиеле?</string>
   <string name="button_calculate">ПРЕСМЕТАЈ</string>
   <string name="button_alarm">АЛАРМ</string>
   <string name="button_reset">РЕСЕТ</string>

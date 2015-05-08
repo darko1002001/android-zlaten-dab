@@ -68,7 +68,16 @@ public class MathUtil {
   }
 
   public static double getLegalLimit() {
-    return LEGAL_LIMIT_WITH_TWO_YEARS;
+    double legalLimit = 0;
+    switch (PreferenceUtil.getYearsDriving().get()) {
+      case 0:
+        legalLimit = LEGAL_LIMIT_WITHOUT_TWO_YEARS;
+        break;
+      case 1:
+        legalLimit = LEGAL_LIMIT_WITH_TWO_YEARS;
+        break;
+    }
+    return legalLimit;
   }
 
   public static double getHoursUntilSober(double bac) {
