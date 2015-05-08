@@ -24,9 +24,9 @@ import butterknife.InjectView;
 public class TaxiDialogFragment extends DialogFragment {
 
     public static final String TAG = TaxiDialogFragment.class.getSimpleName();
-    public static String TAXI_GLOBAL = "070400023";
-    public static String TAXI_RIVA = "070971916";
-    public static String TAXI_PULSTARS = "071397939";
+    public static String TAXI_GLOBAL = "070515180";
+    public static String TAXI_RIVA = "075215161";
+    public static String TAXI_PULSTARS = "077766070";
 
     @InjectView(R.id.linearLayoutGlobal)
     LinearLayout linearLayoutGlobal;
