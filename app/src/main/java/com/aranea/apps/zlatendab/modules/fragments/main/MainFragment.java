@@ -16,10 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
-import com.aranea.apps.zlatendab.modules.fragments.ResetDialogFragment;
-import com.aranea.apps.zlatendab.modules.fragments.TimeDialogFragment;
 import com.aranea.apps.zlatendab.modules.activities.MainActivity;
+import com.aranea.apps.zlatendab.modules.fragments.ResetDialogFragment;
 import com.aranea.apps.zlatendab.modules.fragments.TaxiDialogFragment;
+import com.aranea.apps.zlatendab.modules.fragments.TimeDialogFragment;
 import com.aranea.apps.zlatendab.modules.fragments.WarningDialogFragment;
 import com.aranea.apps.zlatendab.util.AppUtil;
 import com.aranea.apps.zlatendab.util.MathUtil;
@@ -27,8 +27,6 @@ import com.aranea.apps.zlatendab.util.PreferenceUtil;
 import com.gc.materialdesign.widgets.SnackBar;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
-
-import java.util.Timer;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -107,7 +105,6 @@ public class MainFragment extends Fragment {
   private TimeDialogFragment timeDialogFragment;
   private ResetDialogFragment resetDialogFragment;
   private SnackBar snackBar;
-  private Timer timer;
 
   @Nullable
   @Override

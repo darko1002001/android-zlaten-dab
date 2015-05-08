@@ -40,7 +40,7 @@ public class TimeDialogFragment extends DialogFragment {
   private OnTimeChosenListener onTimeChosenListener;
 
   public interface OnTimeChosenListener {
-    public void onChoose(int hours, int minutes);
+     void onChoose(int hours, int minutes);
   }
 
   public void setOnTimeChosenListener(OnTimeChosenListener listener) {
@@ -79,11 +79,25 @@ public class TimeDialogFragment extends DialogFragment {
     return view;
   }
 
+  @Override
+  public void onStart() {
+    super.onStart();
+    getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+  }
+
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Dialog dialog = super.onCreateDialog(savedInstanceState);
     dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+
     return dialog;
   }
 }
