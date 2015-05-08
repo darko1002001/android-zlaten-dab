@@ -169,7 +169,7 @@ public class MainFragment extends Fragment {
       } else if (view == intervalButton) {
         timeDialogFragment.show(getFragmentManager(), "Time");
       } else if (view == statusButton) {
-
+        AppUtil.callCab(getActivity());
       } else if (view == calculateButton) {
         calculateBacLevel();
       } else if (view == alarmButton) {
