@@ -1,5 +1,6 @@
 package com.aranea.apps.zlatendab.modules.fragments.main;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,11 +14,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aranea.apps.zlatendab.OnTimerSecondListener;
 import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.Timer;
 import com.aranea.apps.zlatendab.modules.TimeDialogFragment;
 import com.aranea.apps.zlatendab.modules.fragments.TaxiDialogFragment;
+import com.aranea.apps.zlatendab.modules.activities.MainActivity;
 import com.aranea.apps.zlatendab.util.AppUtil;
 import com.aranea.apps.zlatendab.util.MathUtil;
+import com.aranea.apps.zlatendab.util.PreferenceUtil;
+import com.gc.materialdesign.widgets.SnackBar;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
@@ -70,7 +76,13 @@ public class MainFragment extends Fragment {
   @InjectView(R.id.resetButton)
   Button resetButton;
   @InjectView(R.id.timer)
-  TextView timer;
+  TextView timerLabel;
+
+  private OnGoToSettingsListener onGoToSettingsListener;
+
+  public interface OnGoToSettingsListener {
+    public void onOpenSettings();
+  }
 
   private ViewPagerAdapter viewPagerAdapter;
   private int currentPosition;
@@ -90,6 +102,8 @@ public class MainFragment extends Fragment {
   private int minutesChosen;
 
   private TimeDialogFragment timeDialogFragment;
+  private SnackBar snackBar;
+  private Timer timer;
 
   @Nullable
   @Override
@@ -98,6 +112,28 @@ public class MainFragment extends Fragment {
     ButterKnife.inject(this, view);
 
     initializeLayout(view);
+
+    timeDialogFragment = new TimeDialogFragment();
+    timeDialogFragment.setOnTimeChosenListener(new TimeDialogFragment.OnTimeChosenListener() {
+      @Override
+      public void onChoose(int hours, int minutes) {
+        intervalButton.setText(hours + " " + getString(R.string.hours) + ",\n" + minutes + " " + getString(R.string.minutes));
+        hoursChosen = hours;
+        minutesChosen = minutes;
+      }
+    });
+
+    timer = Timer.newInstance();
+    timer.setOnTimerSecondListener(new OnTimerSecondListener() {
+      @Override
+      public void onSecond(int hours, int minutes, int seconds) {
+        timerLabel.setText(hours + ":" + minutes + ":" + seconds);
+      }
+    });
+
+    if (PreferenceUtil.getSoberTimePreference().get() != null) {
+      timer.startTimer(MathUtil.refreshTimeUntilSober());
+    }
 
     pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override
@@ -136,7 +172,6 @@ public class MainFragment extends Fragment {
     });
 
     amountLabel.setText(getString(R.string.small));
-
     return view;
   }
 
@@ -144,6 +179,12 @@ public class MainFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.reset(this);
+    timer.removeTimer();
+  }
+
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+    onGoToSettingsListener = (MainActivity) getActivity();
   }
 
   private class OnButtonClickListener implements View.OnClickListener {
@@ -176,6 +217,8 @@ public class MainFragment extends Fragment {
       } else if (view == alarmButton) {
 
       } else if (view == resetButton) {
+        PreferenceUtil.getSoberTimePreference().delete();
+        if (timer != null) timer.removeTimer();
         initForms();
       }
     }
@@ -254,15 +297,6 @@ public class MainFragment extends Fragment {
   }
 
   private void initializeLayout(View view) {
-    timeDialogFragment = new TimeDialogFragment();
-    timeDialogFragment.setOnTimeChosenListener(new TimeDialogFragment.OnTimeChosenListener() {
-      @Override
-      public void onChoose(int hours, int minutes) {
-        intervalButton.setText(hours + " hours,\n" + minutes + " minutes");
-        hoursChosen = hours;
-        minutesChosen = minutes;
-      }
-    });
     leftChevronDrawable = new IconDrawable(getActivity(), Iconify.IconValue.fa_chevron_left)
       .colorRes(R.color.colorPrimary)
       .sizeDp(45);
@@ -312,6 +346,49 @@ public class MainFragment extends Fragment {
   }
 
   private void calculateBacLevel() {
+
+    if (PreferenceUtil.getWeightPreference().get() == 0) {
+      snackBar = new SnackBar(getActivity(), getString(R.string.weight_warning), getString(R.string.snack_settings), new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          onGoToSettingsListener.onOpenSettings();
+        }
+      });
+      snackBar.setColorButton(getResources().getColor(R.color.zlatenDab));
+      snackBar.setMessageTextSize(AppUtil.convertDpToPixel(7, getActivity()));
+      snackBar.setDismissTimer(10000);
+      snackBar.show();
+      return;
+    }
+
+    if (smallBeersNumber == 0 && mediumBeersNumber == 0 && largeBeersNumbers == 0) {
+      snackBar = new SnackBar(getActivity(), getString(R.string.drinks_warning), getString(R.string.ok), new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          snackBar.dismiss();
+        }
+      });
+      snackBar.setColorButton(getResources().getColor(R.color.zlatenDab));
+      snackBar.setMessageTextSize(AppUtil.convertDpToPixel(7, getActivity()));
+      snackBar.setDismissTimer(10000);
+      snackBar.show();
+      return;
+    }
+
+    if (hoursChosen == 0 && minutesChosen == 0) {
+      snackBar = new SnackBar(getActivity(), getString(R.string.time_warning), getString(R.string.ok), new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          snackBar.dismiss();
+        }
+      });
+      snackBar.setColorButton(getResources().getColor(R.color.zlatenDab));
+      snackBar.setMessageTextSize(AppUtil.convertDpToPixel(7, getActivity()));
+      snackBar.setDismissTimer(10000);
+      snackBar.show();
+      return;
+    }
+
     int numSmallBeers = Integer.parseInt(numberSmall.getText().toString());
     int numMediumBeers = Integer.parseInt(numberMedium.getText().toString());
     int numLargeBeers = Integer.parseInt(numberLarge.getText().toString());
@@ -326,6 +403,8 @@ public class MainFragment extends Fragment {
 
     double timeInHours = MathUtil.convertTimeToHours(hoursChosen, minutesChosen);
     double resultBac = MathUtil.getBacLevel(ouncesConsumed, timeInHours);
+    MathUtil.calculateAndSaveSoberTime(MathUtil.getHoursUntilSober(resultBac));
+    timer.startTimer(MathUtil.getHoursUntilSober(resultBac));
     bacLevel.setText(String.valueOf(resultBac) + "%");
 
     statusButton.setVisibility(View.VISIBLE);
@@ -345,7 +424,7 @@ public class MainFragment extends Fragment {
     smallBeersNumber = 0;
     mediumBeersNumber = 0;
     largeBeersNumbers = 0;
-    intervalButton.setText(hoursChosen + " hours,\n" + minutesChosen + " minutes");
+    intervalButton.setText(hoursChosen + " " + getString(R.string.hours) + ",\n" + minutesChosen + " " + getString(R.string.minutes));
     bacLevel.setTextColor(getResources().getColor(R.color.textColorPrimary));
     addBeersLabel.setVisibility(View.VISIBLE);
     beerNumbersLayout.setVisibility(View.GONE);
@@ -354,7 +433,7 @@ public class MainFragment extends Fragment {
     numberMedium.setText("0");
     numberLarge.setText("0");
     bacLevel.setText("0.0%");
-    timer.setText("00:00:00");
+    timerLabel.setText("00:00:00");
   }
 
   private void showCabDialog() {

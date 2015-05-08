@@ -24,6 +24,11 @@
   <string name="enter_number_label">Add beers</string>
   <string name="label_driving_license">Driving License</string>
 
+  <string name="weight_warning">Error! Please enter a valid weight value.</string>
+  <string name="snack_settings">Settings</string>
+  <string name="time_warning">Warning! The time is set to 0.</string>
+  <string name="drinks_warning">Please enter number of beers above.</string>
+
   <string name="large">1,5L</string>
   <string name="medium">0,5L</string>
   <string name="small">0,33L</string>

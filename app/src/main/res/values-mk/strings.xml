@@ -24,9 +24,15 @@
   <string name="sober_label">Трезни за отприлика:</string>
   <string name="enter_number_label">Додадете пива</string>
   <string name="ok">ОК</string>
-  <string name="hours">ЧАСОВИ</string>
+  <string name="hours">ЧАСА</string>
   <string name="minutes">МИНУТИ</string>
+
   <string name="label_taxi_riva">Такси Рива</string>
   <string name="label_taxi_global">Такси Глобал</string>
   <string name="label_taxi_pulstars">Такси Пулстарс</string>
+
+  <string name="weight_warning">Грешка! Внесете валидна вредност за тежина.</string>
+  <string name="snack_settings">Смени</string>
+  <string name="time_warning">Внимание! Времето е наместено на 0.</string>
+  <string name="drinks_warning">Внесете број на пива.</string>
 </resources>

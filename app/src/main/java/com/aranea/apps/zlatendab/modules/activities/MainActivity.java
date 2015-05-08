@@ -3,19 +3,15 @@ package com.aranea.apps.zlatendab.modules.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.aranea.apps.zlatendab.R;
-import com.aranea.apps.zlatendab.app.App;
-import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
 import com.aranea.apps.zlatendab.modules.fragments.SettingsFragment;
+import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
 import com.aranea.apps.zlatendab.util.FragmentUtil;
 import com.aranea.apps.zlatendab.util.ImageUtil;
 import com.joanzapata.android.iconify.Iconify;
@@ -24,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements MainFragment.OnGoToSettingsListener {
 
   @InjectView(R.id.toolbar)
   Toolbar toolbar;
@@ -102,5 +98,11 @@ public class MainActivity extends ActionBarActivity {
   @Override
   protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+  }
+
+  public void onOpenSettings() {
+    if (fragmentManager.findFragmentByTag(SettingsFragment.class.getSimpleName()) == null)
+      FragmentUtil.replaceFragment(getSupportFragmentManager(),
+        R.id.fragmentContainer, new SettingsFragment(), SettingsFragment.class.getSimpleName());
   }
 }
