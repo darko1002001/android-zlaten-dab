@@ -10,4 +10,7 @@
       <enum name="auto" value="2147483647"/>
     </attr>
   </declare-styleable>
+
+    <attr name="textFieldStyle" format="reference"/>
+
 </resources>

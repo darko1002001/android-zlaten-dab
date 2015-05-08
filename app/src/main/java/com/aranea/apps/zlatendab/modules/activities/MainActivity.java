@@ -1,5 +1,6 @@
 package com.aranea.apps.zlatendab.modules.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.joanzapata.android.iconify.Iconify;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -95,5 +97,10 @@ public class MainActivity extends ActionBarActivity {
     setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.drawable.logo);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
+  }
+
+  @Override
+  protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 }
