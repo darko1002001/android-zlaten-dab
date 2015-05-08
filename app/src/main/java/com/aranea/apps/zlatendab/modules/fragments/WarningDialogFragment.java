@@ -73,7 +73,7 @@ public class WarningDialogFragment extends DialogFragment {
         String yearsDriving = (yearsDrivingPref == 0) ? getString(R.string.radio_button_driving_license_less) : getString(R.string.radio_button_driving_license_more);
 
         String warning = String.format(context.getString(R.string.dialog_warning_info), yearsDriving);
-        textViewWarning.setText(warning + " " + allowedBac);
+        textViewWarning.setText(warning + " " + allowedBac + "%");
         textViewWarningBac.setText(String.valueOf(PreferenceUtil.getTempBac().get()) + "%");
     }
 

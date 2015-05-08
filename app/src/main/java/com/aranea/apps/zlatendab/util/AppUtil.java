@@ -8,6 +8,9 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -35,6 +38,17 @@ public class AppUtil {
 
         configuration.locale = new Locale(languageCode.toLowerCase());
         context.getResources().updateConfiguration(configuration, dm);
+    }
+
+    public static Date stringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E MMM dd kk:mm:ss zzzz yyyy");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
     }
 
 

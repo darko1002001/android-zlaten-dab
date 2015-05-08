@@ -5,12 +5,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+import com.aranea.apps.zlatendab.modules.service.AlarmBroadcastReceiver;
+
 public class AlarmUtil {
 
   public static void setAlarm(Context context, int milliseconds) {
     AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-    Intent intent = new Intent(context, AlarmReceiver.class);
+    Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
 
     PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
     am.set(AlarmManager.RTC, System.currentTimeMillis() + milliseconds, pi);
@@ -19,7 +21,7 @@ public class AlarmUtil {
   public static void cancelAlarm(Context context) {
     AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-    Intent intent = new Intent(context, AlarmReceiver.class);
+    Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
 
     PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
 

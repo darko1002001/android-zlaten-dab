@@ -13,7 +13,7 @@
   <string name="label_language">Language</string>
   <string name="label_weight">Weight</string>
   <string name="share">Share</string>
-  <string name="label_who">CHOOSE A SIZE</string>
+  <string name="label_who">CHOOSE SIZE</string>
   <string name="label_time_interval">How long have you been drinking?</string>
   <string name="button_calculate">CALCULATE</string>
   <string name="button_alarm">SET ALARM</string>
@@ -47,6 +47,10 @@
   <string name="reset_text_two">Do you want to start a new timer?</string>
 
   <string name="sober">You are sober.</string>
-  <string name="dialog_warning_info">The allowed limit in RM for drivers with %s driving license is</string>
+  <string name="dialog_warning_info">The allowed limit in RM for drivers with driving license %s is</string>
   <string name="dialog_warning_bac">You musn\'t drive!!!</string>
+  <string name="snack_bar_sober_time">Please fill in all the required information</string>
+  <string name="alarm_title">Zlaten Dab Alarm</string>
+  <string name="alarm_message">You are now sober. Grab a beer! Cheers!</string>
+  <string name="snack_bar_alarm">Alarm is set.</string>
 </resources>

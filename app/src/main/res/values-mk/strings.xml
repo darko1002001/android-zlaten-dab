@@ -42,6 +42,10 @@
   <string name="reset_text_two">Дали сакате нов тајмер?</string>
 
   <string name="sober">Трезни сте.</string>
-  <string name="dialog_warning_info">Дозволениот лимит во РМ за возачи со %s возачка дозвола е</string>
+  <string name="dialog_warning_info">Дозволениот лимит во РМ за возачи со возачка дозвола %s е</string>
   <string name="dialog_warning_bac">Не е препорачливо да возите!!!</string>
+  <string name="snack_bar_sober_time">Ве молиме најпрво да ги внесете сите потребни информации</string>
+  <string name="alarm_title">Златен Даб Аларм</string>
+  <string name="alarm_message">Сега можете да се напиете пивце! Наздравје!</string>
+  <string name="snack_bar_alarm">Алармот е сетиран.</string>
 </resources>

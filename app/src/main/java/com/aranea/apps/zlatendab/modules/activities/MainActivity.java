@@ -1,31 +1,41 @@
 package com.aranea.apps.zlatendab.modules.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.app.WindowDecorActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.aranea.apps.zlatendab.R;
 import com.aranea.apps.zlatendab.modules.fragments.SettingsFragment;
 import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
+import com.aranea.apps.zlatendab.modules.fragments.main.ManageAlarmListener;
+import com.aranea.apps.zlatendab.modules.service.AlarmBroadcastReceiver;
+import com.aranea.apps.zlatendab.modules.service.AlarmService;
 import com.aranea.apps.zlatendab.util.FragmentUtil;
 import com.aranea.apps.zlatendab.util.ImageUtil;
 import com.joanzapata.android.iconify.Iconify;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends ActionBarActivity implements MainFragment.OnGoToSettingsListener {
+public class MainActivity extends ActionBarActivity implements MainFragment.OnGoToSettingsListener, ManageAlarmListener {
 
   @InjectView(R.id.toolbar)
   Toolbar toolbar;
 
   private FragmentManager fragmentManager;
+  private AlarmManager alarmManager;
+  private PendingIntent pendingIntent;
 
   public static final int OPTIONS_MENU_ITEM_SETTINGS = 321;
   public static final int OPTIONS_MENU_ITEM_INFO = 968;
@@ -36,7 +46,9 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
+
     fragmentManager = getSupportFragmentManager();
+    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
     setupToolbar();
 
@@ -44,6 +56,12 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
       R.id.fragmentContainer, new MainFragment(), MainFragment.class.getSimpleName());
 
 
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    checkAlarm();
   }
 
   @Override
@@ -102,4 +120,26 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
       FragmentUtil.replaceFragment(getSupportFragmentManager(),
         R.id.fragmentContainer, new SettingsFragment(), SettingsFragment.class.getSimpleName());
   }
+
+  @Override
+  public void startAlarm(long millis) {
+    Intent myIntent = new Intent(MainActivity.this, AlarmBroadcastReceiver.class);
+    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+    alarmManager.set(AlarmManager.RTC, millis, pendingIntent);
+  }
+
+  @Override
+  public void cancelAlarm() {
+    alarmManager.cancel(pendingIntent);
+  }
+
+  private void checkAlarm() {
+    Log.d("debug", "check alarm");
+    if (getIntent().getExtras() != null) {
+        Log.d("debug", "canceling alarm");
+        cancelAlarm();
+
+    }
+  }
+
 }

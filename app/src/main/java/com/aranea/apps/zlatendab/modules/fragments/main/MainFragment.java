@@ -16,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
+import com.aranea.apps.zlatendab.app.App;
+import com.aranea.apps.zlatendab.modules.fragments.ResetDialogFragment;
+import com.aranea.apps.zlatendab.modules.fragments.TimeDialogFragment;
 import com.aranea.apps.zlatendab.modules.activities.MainActivity;
 import com.aranea.apps.zlatendab.modules.fragments.ResetDialogFragment;
 import com.aranea.apps.zlatendab.modules.fragments.TaxiDialogFragment;
@@ -28,13 +31,17 @@ import com.gc.materialdesign.widgets.SnackBar;
 import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 
+import java.util.Date;
+import java.util.Timer;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import timber.log.Timber;
 
 /**
  * Created by MephistoFloyd on 5/4/2015.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment{
 
   @InjectView(R.id.pager)
   CustomViewPager pager;
@@ -80,6 +87,7 @@ public class MainFragment extends Fragment {
   TextView timerLabel;
 
   private OnGoToSettingsListener onGoToSettingsListener;
+  private ManageAlarmListener manageAlarmsListener;
 
   public interface OnGoToSettingsListener {
     public void onOpenSettings();
@@ -133,6 +141,7 @@ public class MainFragment extends Fragment {
         bacLevel.setText("0.0%");
         timerLabel.setText("00:00:00 " + getString(R.string.after_time_label));
         calculateBacLevel();
+        manageAlarmsListener.cancelAlarm();
       }
     });
 
@@ -196,6 +205,7 @@ public class MainFragment extends Fragment {
   public void onAttach(Activity activity) {
     super.onAttach(activity);
     onGoToSettingsListener = (MainActivity) getActivity();
+    manageAlarmsListener = (ManageAlarmListener) activity;
   }
 
   private class OnButtonClickListener implements View.OnClickListener {
@@ -231,8 +241,9 @@ public class MainFragment extends Fragment {
           calculateBacLevel();
         }
       } else if (view == alarmButton) {
-
+        setAlarm();
       } else if (view == resetButton) {
+        manageAlarmsListener.cancelAlarm();
         PreferenceUtil.getSoberTimePreference().delete();
         PreferenceUtil.getTempBac().delete();
         initForms();
@@ -471,4 +482,37 @@ public class MainFragment extends Fragment {
     WarningDialogFragment warningDialogFragment = new WarningDialogFragment();
     warningDialogFragment.show(getActivity().getSupportFragmentManager(), WarningDialogFragment.TAG);
   }
+
+  private void setAlarm(){
+    if (TextUtils.isEmpty(PreferenceUtil.getSoberTimePreference().get())) {
+      snackBar = new SnackBar(getActivity(), getString(R.string.snack_bar_sober_time), getString(android.R.string.ok), new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          snackBar.dismiss();
+        }
+      });
+      snackBar.setColorButton(getResources().getColor(R.color.zlatenDab));
+      snackBar.setMessageTextSize(AppUtil.convertDpToPixel(7, getActivity()));
+      snackBar.setDismissTimer(10000);
+      snackBar.show();
+    } else {
+      Date date = AppUtil.stringToDate(PreferenceUtil.getSoberTimePreference().get());
+      manageAlarmsListener.startAlarm(date.getTime());
+      setSnackBarAlarm();
+    }
+  }
+
+  private void setSnackBarAlarm() {
+    snackBar = new SnackBar(getActivity(), getString(R.string.snack_bar_alarm), getString(android.R.string.ok), new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        snackBar.dismiss();
+      }
+    });
+    snackBar.setColorButton(getResources().getColor(R.color.zlatenDab));
+    snackBar.setMessageTextSize(AppUtil.convertDpToPixel(7, getActivity()));
+    snackBar.setDismissTimer(10000);
+    snackBar.show();
+  }
+
 }
