@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.internal.app.WindowDecorActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,14 +17,12 @@ import com.aranea.apps.zlatendab.modules.fragments.SettingsFragment;
 import com.aranea.apps.zlatendab.modules.fragments.main.MainFragment;
 import com.aranea.apps.zlatendab.modules.fragments.main.ManageAlarmListener;
 import com.aranea.apps.zlatendab.modules.service.AlarmBroadcastReceiver;
-import com.aranea.apps.zlatendab.modules.service.AlarmService;
 import com.aranea.apps.zlatendab.util.FragmentUtil;
 import com.aranea.apps.zlatendab.util.ImageUtil;
 import com.joanzapata.android.iconify.Iconify;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends ActionBarActivity implements MainFragment.OnGoToSettingsListener, ManageAlarmListener {
@@ -35,7 +32,10 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
 
   private FragmentManager fragmentManager;
   private AlarmManager alarmManager;
-  private PendingIntent pendingIntent;
+  private Intent mNotificationReceiverIntent;
+  private PendingIntent mNotificationReceiverPendingIntent;
+  private static final long INITIAL_ALARM_DELAY = 2 * 60 * 1000L;
+  protected static final long JITTER = 5000L;
 
   public static final int OPTIONS_MENU_ITEM_SETTINGS = 321;
   public static final int OPTIONS_MENU_ITEM_INFO = 968;
@@ -49,6 +49,13 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
 
     fragmentManager = getSupportFragmentManager();
     alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+    // Create an Intent to broadcast to the AlarmNotificationReceiver
+    mNotificationReceiverIntent = new Intent(MainActivity.this,
+            AlarmBroadcastReceiver.class);
+
+    // Create an PendingIntent that holds the NotificationReceiverIntent
+    mNotificationReceiverPendingIntent = PendingIntent.getBroadcast(
+            MainActivity.this, 0, mNotificationReceiverIntent, 0);
 
     setupToolbar();
 
@@ -123,14 +130,13 @@ public class MainActivity extends ActionBarActivity implements MainFragment.OnGo
 
   @Override
   public void startAlarm(long millis) {
-    Intent myIntent = new Intent(MainActivity.this, AlarmBroadcastReceiver.class);
-    pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
-    alarmManager.set(AlarmManager.RTC, millis, pendingIntent);
+    alarmManager.set(AlarmManager.RTC_WAKEUP,
+            millis, mNotificationReceiverPendingIntent);
   }
 
   @Override
   public void cancelAlarm() {
-    alarmManager.cancel(pendingIntent);
+    alarmManager.cancel(mNotificationReceiverPendingIntent);
   }
 
   private void checkAlarm() {

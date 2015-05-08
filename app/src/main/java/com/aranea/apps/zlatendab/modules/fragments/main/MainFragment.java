@@ -43,6 +43,8 @@ import timber.log.Timber;
  */
 public class MainFragment extends Fragment{
 
+  private String dummy = "Fri May 08 23:05:31 GMT+02:00 2015";
+
   @InjectView(R.id.pager)
   CustomViewPager pager;
   @InjectView(R.id.pager_container)
