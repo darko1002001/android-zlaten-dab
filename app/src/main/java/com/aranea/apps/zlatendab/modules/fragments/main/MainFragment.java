@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.aranea.apps.zlatendab.R;
 import com.aranea.apps.zlatendab.modules.TimeDialogFragment;
+import com.aranea.apps.zlatendab.modules.fragments.TaxiDialogFragment;
 import com.aranea.apps.zlatendab.util.AppUtil;
 import com.aranea.apps.zlatendab.util.MathUtil;
 import com.joanzapata.android.iconify.IconDrawable;
@@ -169,7 +170,7 @@ public class MainFragment extends Fragment {
       } else if (view == intervalButton) {
         timeDialogFragment.show(getFragmentManager(), "Time");
       } else if (view == statusButton) {
-        AppUtil.callCab(getActivity());
+        showCabDialog();
       } else if (view == calculateButton) {
         calculateBacLevel();
       } else if (view == alarmButton) {
@@ -354,5 +355,10 @@ public class MainFragment extends Fragment {
     numberLarge.setText("0");
     bacLevel.setText("0.0%");
     timer.setText("00:00:00");
+  }
+
+  private void showCabDialog() {
+    TaxiDialogFragment taxiDialogFragment = new TaxiDialogFragment();
+    taxiDialogFragment.show(getActivity().getSupportFragmentManager(), TaxiDialogFragment.TAG);
   }
 }

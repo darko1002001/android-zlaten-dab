@@ -31,4 +31,8 @@
   <string name="ok">OK</string>
   <string name="hours">HOURS</string>
   <string name="minutes">MINUTES</string>
+
+  <string name="label_taxi_global">Taxi Global</string>
+  <string name="label_taxi_riva">Taxi Riva</string>
+  <string name="label_taxi_pulstars">Taxi Pulstars</string>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <!-- Global -->
+    <LinearLayout
+        android:id="@+id/linearLayoutGlobal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textViewLabelGlobal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="@string/label_taxi_global" />
+
+        <ImageView
+            android:id="@+id/imageViewGlobal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+             />
+    </LinearLayout>
+
+    <!-- Riva -->
+    <LinearLayout
+        android:id="@+id/linearLayoutRiva"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textViewLabelRiva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="25sp"
+            android:text="@string/label_taxi_riva" />
+
+        <ImageView
+            android:id="@+id/imageViewRiva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            />
+    </LinearLayout>
+
+    <!-- Pulstars -->
+    <LinearLayout
+        android:id="@+id/linearLayoutPulstars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/textViewLabelPulstars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:text="@string/label_taxi_pulstars" />
+
+        <ImageView
+            android:id="@+id/imageViewPulstars"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
+    </LinearLayout>
+
+</LinearLayout>

@@ -15,8 +15,6 @@ import java.util.Locale;
  */
 public class AppUtil {
 
-    public static String TAXI_NUMBER = "070400023";
-
     public static int convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -39,9 +37,5 @@ public class AppUtil {
         context.getResources().updateConfiguration(configuration, dm);
     }
 
-    public static void callCab(Activity context) {
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:" + TAXI_NUMBER));
-        context.startActivity(intent);
-    }
+
 }

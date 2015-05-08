@@ -26,4 +26,7 @@
   <string name="ok">ОК</string>
   <string name="hours">ЧАСОВИ</string>
   <string name="minutes">МИНУТИ</string>
+  <string name="label_taxi_riva">Такси Рива</string>
+  <string name="label_taxi_global">Такси Глобал</string>
+  <string name="label_taxi_pulstars">Такси Пулстарс</string>
 </resources>
